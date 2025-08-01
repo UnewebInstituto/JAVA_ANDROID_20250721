@@ -1,0 +1,48 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'21'
+-sourcepath
+'C:/Users/duque/OneDrive/Documents/Henry Duque/UNEWEB/.PROFESORES/HENRY_DUQUE/JAVA_ANDROID_20250721/AgendaTelefonicaMavenApp/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/duque/OneDrive/Documents/Henry Duque/UNEWEB/.PROFESORES/HENRY_DUQUE/JAVA_ANDROID_20250721/AgendaTelefonicaMavenApp/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'AgendaTelefonicaMavenApp 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'AgendaTelefonicaMavenApp 1.0-SNAPSHOT API'
+com.agenda.app
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\src\main\java = 1754078513341
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\allclasses-index.html = 1754087185946
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\allpackages-index.html = 1754087185967
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\copy.svg = 1754087186211
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\element-list = 1754087185539
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\help-doc.html = 1754087186152
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\index-all.html = 1754087186093
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\index.html = 1754087186119
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\link.svg = 1754087186222
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\member-search-index.js = 1754087186048
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\module-search-index.js = 1754087185978
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\overview-tree.html = 1754087185904
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\package-search-index.js = 1754087185998
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\script.js = 1754087186198
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\search-page.js = 1754087186247
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\search.html = 1754087186107
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\search.js = 1754087186236
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\serialized-form.html = 1754087185795
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\stylesheet.css = 1754087186163
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\tag-search-index.js = 1754087186056
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANDROID_20250721\AgendaTelefonicaMavenApp\target\reports\apidocs\type-search-index.js = 1754087186041

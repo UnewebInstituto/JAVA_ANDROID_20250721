@@ -1,0 +1,1267 @@
+-----
+
+# Curso de Java SE Nivel I: Fundamentos de Programación
+
+**Requisitos Previos:** Conocimientos sólidos de Lógica de Programación.
+
+## 1\. Introducción al Lenguaje Java
+
+En esta sección, haremos un recorrido por los orígenes y las características principales de Java, su ecosistema y las herramientas básicas que usaremos.
+
+### Historia
+
+Java fue desarrollado por **James Gosling** y su equipo en **Sun Microsystems** (adquirida posteriormente por Oracle) a principios de los años 90. Fue concebido inicialmente para programar dispositivos electrónicos de consumo. Su lema original, "Write Once, Run Anywhere" (WORA), resalta su capacidad de portabilidad. La primera versión pública, **JDK 1.0**, fue lanzada en 1996.
+
+### Características
+
+  * **Orientado a Objetos:** Todo en Java, excepto los tipos primitivos, es un objeto. Se basa en los principios de encapsulamiento, herencia y polimorfismo.
+  * **Plataforma Independiente:** Gracias a la **Máquina Virtual de Java (JVM)**, el código Java compilado (bytecode) puede ejecutarse en cualquier sistema operativo que tenga una JVM compatible.
+  * **Sintaxis Similar a C/C++:** Esto facilita la curva de aprendizaje para programadores que ya conocen estos lenguajes.
+  * **Seguro:** Incorpora características de seguridad a nivel de lenguaje y de la JVM, como la gestión automática de memoria y la ausencia de punteros explícitos.
+  * **Robusto:** Maneja excepciones de forma estructurada y tiene un recolector de basura (Garbage Collector) que libera memoria automáticamente, reduciendo fugas de memoria.
+  * **Multihilo:** Permite la ejecución concurrente de múltiples partes de un programa, mejorando el rendimiento en ciertas aplicaciones.
+  * **Alto Rendimiento:** Aunque no es tan rápido como C/C++, la JVM y las optimizaciones Just-In-Time (JIT) Compiler han mejorado significativamente su rendimiento.
+
+### Ventajas
+
+  * **Amplia Comunidad y Soporte:** Gran cantidad de recursos, foros y librerías disponibles.
+  * **Versatilidad:** Se usa en desarrollo web (Spring, Jakarta EE), móvil (Android), empresarial (ERP, CRM), big data (Hadoop), escritorio (Swing, JavaFX) y más.
+  * **Escalabilidad:** Ideal para construir sistemas grandes y complejos.
+  * **Herramientas Maduras:** Entornos de desarrollo integrados (IDEs) muy potentes y herramientas de depuración avanzadas.
+
+### Desventajas
+
+  * **Consumo de Memoria:** Puede ser más intensivo en el uso de memoria comparado con lenguajes de bajo nivel.
+  * **Rendimiento en Aplicaciones Simples:** Para tareas muy pequeñas, la sobrecarga de la JVM puede hacer que el inicio sea más lento.
+  * **Curva de Aprendizaje:** Aunque la sintaxis es familiar, el paradigma orientado a objetos puede ser un desafío para principiantes.
+
+### Descarga
+
+Para desarrollar en Java, necesitamos el **Java Development Kit (JDK)**.
+
+1.  Visita el sitio oficial de **Oracle Java** o **OpenJDK**.
+2.  Busca la versión estable más reciente de **Java SE (Standard Edition)**. Actualmente, estamos en la versión 21 (LTS) o 22 (no LTS) o más reciente.
+3.  Descarga el instalador correspondiente a tu sistema operativo (Windows x64, macOS, Linux).
+
+**Nota:** Para este curso, puedes usar OpenJDK o la distribución de Oracle. Ambas son válidas.
+
+### Entornos de Desarrollo (IDEs)
+
+Un IDE es un software que proporciona herramientas integradas para facilitar el desarrollo de software.
+
+  * **IntelliJ IDEA (Community Edition):** Muy potente, intuitivo y con excelentes características de autocompletado y refactorización. **Recomendado para el curso.**
+  * **Eclipse:** Uno de los IDEs más antiguos y populares, muy extensible.
+  * **NetBeans:** Otro IDE completo, desarrollado originalmente por Sun Microsystems.
+  * **Visual Studio Code (con extensiones de Java):** Ligero y versátil, buena opción si ya lo usas para otros lenguajes.
+
+### Organización de un Proyecto Java Básico
+
+Un proyecto Java típico se organiza de la siguiente manera:
+
+  * **Carpeta Raíz del Proyecto:** Contiene todo el código y la configuración.
+  * **`src` (Source):** Aquí se guarda el código fuente Java (`.java`).
+      * Dentro de `src`, es común organizar el código en **paquetes** (carpetas anidadas que reflejan una estructura lógica y evitan conflictos de nombres). Por ejemplo: `com.miempresa.miproyecto`.
+  * **`bin` (Binary) o `out` (Output):** Donde se guardan los archivos compilados (`.class`). Los IDEs suelen gestionar esto automáticamente.
+  * **`lib` (Libraries):** Para almacenar librerías externas (`.jar`) que tu proyecto pueda necesitar.
+  * **`README.md`:** Información del proyecto.
+  * **`pom.xml` / `build.gradle`:** Archivos de configuración para herramientas de construcción (Maven/Gradle) que gestionan dependencias y el proceso de compilación.
+
+**Ejemplo de estructura de proyecto simple:**
+
+```
+MiPrimerProyectoJava/
+├── src/
+│   └── com/
+│       └── ejemplo/
+│           └── MiPrimeraClase.java
+├── bin/
+│   └── com/
+│       └── ejemplo/
+│           └── MiPrimeraClase.class
+└── README.md
+```
+
+-----
+
+## 2\. Repaso de Lógica de Programación
+
+Antes de sumergirnos en la sintaxis de Java, es crucial recordar los conceptos fundamentales de lógica de programación, pero ahora aplicados a cómo Java los maneja.
+
+### Variables
+
+Las **variables** son contenedores para almacenar datos. En Java, las variables deben ser declaradas con un **tipo de dato** específico antes de ser usadas y pueden cambiar su valor durante la ejecución del programa.
+
+**Sintaxis:** `tipoDeDato nombreVariable = valorInicial;`
+
+**Ejemplo:**
+
+```java
+public class RepasoVariables {
+    public static void main(String[] args) {
+        // Declaración e inicialización de variables
+        int edad = 30; // Un número entero
+        double precio = 19.99; // Un número decimal
+        char inicial = 'J'; // Un solo carácter
+        boolean esEstudiante = true; // Un valor booleano (verdadero/falso)
+        String nombre = "Juan Pérez"; // Una cadena de texto (tipo de referencia)
+
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+        System.out.println("Precio: " + precio);
+        System.out.println("Inicial: " + inicial);
+        System.out.println("Es estudiante: " + esEstudiante);
+
+        // Modificando el valor de una variable
+        edad = edad + 1; // Incrementamos la edad
+        precio = 25.50; // Cambiamos el precio
+
+        System.out.println("Nueva edad: " + edad);
+        System.out.println("Nuevo precio: " + precio);
+    }
+}
+```
+
+### Constantes
+
+Las **constantes** son valores fijos que no pueden cambiar una vez que se les ha asignado un valor. En Java, se declaran usando la palabra clave `final`. Por convención, sus nombres suelen estar en mayúsculas.
+
+**Sintaxis:** `final tipoDeDato NOMBRE_CONSTANTE = valor;`
+
+**Ejemplo:**
+
+```java
+public class RepasoConstantes {
+    public static void main(String[] args) {
+        final double PI = 3.14159; // Constante para Pi
+        final int VELOCIDAD_LUZ_KM_S = 299792; // Constante para la velocidad de la luz
+
+        System.out.println("El valor de PI es: " + PI);
+        System.out.println("La velocidad de la luz es: " + VELOCIDAD_LUZ_KM_S + " km/s");
+
+        // PI = 3.14; // Esto generaría un error de compilación: "cannot assign a value to final variable PI"
+    }
+}
+```
+
+### Expresiones Aritméticas
+
+Combinaciones de operandos (variables, constantes, literales) y operadores aritméticos para producir un valor numérico.
+
+**Operadores:** `+` (suma), `-` (resta), `*` (multiplicación), `/` (división), `%` (módulo - resto de la división).
+
+**Ejemplo:**
+
+```java
+public class ExpresionesAritmeticas {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 3;
+
+        int suma = a + b;       // 13
+        int resta = a - b;      // 7
+        int multiplicacion = a * b; // 30
+        int division = a / b;   // 3 (división entera, el resto se ignora)
+        int modulo = a % b;     // 1 (el resto de 10 dividido por 3 es 1)
+
+        double x = 10.0;
+        double y = 3.0;
+        double divisionDecimal = x / y; // 3.3333333333333335
+
+        System.out.println("Suma: " + suma);
+        System.out.println("Resta: " + resta);
+        System.out.println("Multiplicación: " + multiplicacion);
+        System.out.println("División entera: " + division);
+        System.out.println("Módulo: " + modulo);
+        System.out.println("División decimal: " + divisionDecimal);
+
+        // Operadores de incremento y decremento
+        int contador = 5;
+        contador++; // contador ahora es 6 (incremento post-fijo)
+        System.out.println("Contador después de ++: " + contador);
+        ++contador; // contador ahora es 7 (incremento pre-fijo)
+        System.out.println("Contador después de ++ (pre-fijo): " + contador);
+
+        int numero = 10;
+        int resultado1 = ++numero; // numero es 11, resultado1 es 11 (primero incrementa, luego asigna)
+        System.out.println("Resultado1: " + resultado1 + ", Número: " + numero);
+
+        numero = 10;
+        int resultado2 = numero++; // resultado2 es 10, numero es 11 (primero asigna, luego incrementa)
+        System.out.println("Resultado2: " + resultado2 + ", Número: " + numero);
+
+    }
+}
+```
+
+### Expresiones Lógicas
+
+Combinaciones de operandos y operadores de comparación para producir un valor booleano (`true` o `false`).
+
+**Operadores:**
+
+  * `==` (igual a)
+  * `!=` (diferente de)
+  * `>` (mayor que)
+  * `<` (menor que)
+  * `>=` (mayor o igual que)
+  * `<=` (menor o igual que)
+
+**Ejemplo:**
+
+```java
+public class ExpresionesLogicas {
+    public static void main(String[] args) {
+        int num1 = 15;
+        int num2 = 10;
+
+        boolean esIgual = (num1 == num2);    // false
+        boolean esDiferente = (num1 != num2); // true
+        boolean esMayor = (num1 > num2);     // true
+        boolean esMenor = (num1 < num2);     // false
+        boolean esMayorIgual = (num1 >= num2); // true
+        boolean esMenorIgual = (num1 <= num2); // false
+
+        System.out.println("num1 == num2: " + esIgual);
+        System.out.println("num1 != num2: " + esDiferente);
+        System.out.println("num1 > num2: " + esMayor);
+        System.out.println("num1 < num2: " + esMenor);
+        System.out.println("num1 >= num2: " + esMayorIgual);
+        System.out.println("num1 <= num2: " + esMenorIgual);
+    }
+}
+```
+
+### Conectivos Lógicos
+
+Se utilizan para combinar expresiones lógicas y formar expresiones más complejas.
+
+  * `&&` (AND lógico): Verdadero si ambas expresiones son verdaderas.
+  * `||` (OR lógico): Verdadero si al menos una de las expresiones es verdadera.
+  * `!` (NOT lógico): Invierte el valor booleano de una expresión.
+
+**Ejemplo:**
+
+```java
+public class ConectivosLogicos {
+    public static void main(String[] args) {
+        int edad = 20;
+        double salario = 1500.0;
+        boolean tieneLicencia = true;
+
+        // AND lógico (&&)
+        // ¿Es mayor de edad Y tiene licencia?
+        boolean puedeConducir = (edad >= 18) && tieneLicencia; // true && true = true
+        System.out.println("Puede conducir (edad >= 18 && tieneLicencia): " + puedeConducir);
+
+        // OR lógico (||)
+        // ¿Tiene salario alto O es joven?
+        boolean cumpleRequisito = (salario > 2000) || (edad < 25); // false || true = true
+        System.out.println("Cumple requisito (salario > 2000 || edad < 25): " + cumpleRequisito);
+
+        // NOT lógico (!)
+        // ¿No tiene licencia?
+        boolean noTieneLicencia = !tieneLicencia; // !true = false
+        System.out.println("No tiene licencia (!tieneLicencia): " + noTieneLicencia);
+
+        // Combinación
+        boolean condicionCompleja = (edad > 25 && salario > 1000) || (!tieneLicencia);
+        // (false && true) || (false) -> false || false = false
+        System.out.println("Condición compleja: " + condicionCompleja);
+    }
+}
+```
+
+### Tipos de Datos
+
+Java es un lenguaje de **tipado estático**, lo que significa que el tipo de una variable se debe declarar antes de su uso y no puede cambiar. Se dividen en:
+
+1.  **Tipos Primitivos:** Almacenan valores directos en memoria.
+      * **Números Enteros:**
+          * `byte`: 8 bits, de -128 a 127
+          * `short`: 16 bits, de -32,768 a 32,767
+          * `int`: 32 bits, el más común para enteros
+          * `long`: 64 bits, para números muy grandes (usar 'L' al final del literal)
+      * **Números de Punto Flotante (Decimales):**
+          * `float`: 32 bits, precisión simple (usar 'f' o 'F' al final del literal)
+          * `double`: 64 bits, precisión doble (el más común para decimales)
+      * **Caracteres:**
+          * `char`: 16 bits, para un solo carácter Unicode (entre comillas simples)
+      * **Booleanos:**
+          * `boolean`: Representa `true` o `false`
+2.  **Tipos de Referencia:** Almacenan la dirección de un objeto en memoria.
+      * `String`: Para cadenas de texto (es una clase especial, pero se usa como un primitivo).
+      * Clases definidas por el usuario, interfaces, arreglos.
+
+**Ejemplo:**
+
+```java
+public class TiposDeDatos {
+    public static void main(String[] args) {
+        // Tipos de datos primitivos
+        byte edadPersona = 25;
+        short distanciaMetros = 1500;
+        int poblacionCiudad = 1000000;
+        long numeroCuentaGrande = 123456789012345L; // 'L' para indicar que es un long
+
+        float temperatura = 23.5f; // 'f' para indicar que es un float
+        double piExacto = 3.14159265359;
+
+        char letra = 'A';
+        boolean estaActivo = true;
+
+        System.out.println("byte: " + edadPersona);
+        System.out.println("short: " + distanciaMetros);
+        System.out.println("int: " + poblacionCiudad);
+        System.out.println("long: " + numeroCuentaGrande);
+        System.out.println("float: " + temperatura);
+        System.out.println("double: " + piExacto);
+        System.out.println("char: " + letra);
+        System.out.println("boolean: " + estaActivo);
+
+        // Tipo de dato de referencia (String)
+        String mensaje = "Hola, mundo desde Java!";
+        System.out.println("String: " + mensaje);
+    }
+}
+```
+
+-----
+
+## 3\. Estructuras de Control de Flujo de Datos
+
+Las estructuras de control permiten cambiar el orden de ejecución de las instrucciones de un programa, basándose en condiciones o repeticiones.
+
+### Condicional (if)
+
+Ejecuta un bloque de código solo si una condición es verdadera.
+
+#### Simple (`if`)
+
+Ejecuta un bloque si la condición es `true`.
+
+**Sintaxis:**
+
+```java
+if (condicion) {
+    // Código a ejecutar si la condición es verdadera
+}
+```
+
+**Ejemplo:**
+
+```java
+public class IfSimple {
+    public static void main(String[] args) {
+        int calificacion = 75;
+
+        if (calificacion >= 70) {
+            System.out.println("¡Aprobado!");
+        }
+        System.out.println("Fin de la evaluación.");
+    }
+}
+```
+
+#### Compuesto (`if-else`)
+
+Ejecuta un bloque si la condición es `true`, y otro bloque si la condición es `false`.
+
+**Sintaxis:**
+
+```java
+if (condicion) {
+    // Código si la condición es verdadera
+} else {
+    // Código si la condición es falsa
+}
+```
+
+**Ejemplo:**
+
+```java
+public class IfElseCompuesto {
+    public static void main(String[] args) {
+        int edad = 16;
+
+        if (edad >= 18) {
+            System.out.println("Eres mayor de edad.");
+        } else {
+            System.out.println("Eres menor de edad.");
+        }
+    }
+}
+```
+
+#### Anidado (`if-else if-else`)
+
+Permite evaluar múltiples condiciones en secuencia.
+
+**Sintaxis:**
+
+```java
+if (condicion1) {
+    // Código si condicion1 es verdadera
+} else if (condicion2) {
+    // Código si condicion2 es verdadera (y condicion1 fue falsa)
+} else if (condicion3) {
+    // Código si condicion3 es verdadera (y condicion1 y 2 fueron falsas)
+} else {
+    // Código si ninguna de las condiciones anteriores es verdadera
+}
+```
+
+**Ejemplo:**
+
+```java
+public class IfAnidado {
+    public static void main(String[] args) {
+        int puntuacion = 85;
+        char grado;
+
+        if (puntuacion >= 90) {
+            grado = 'A';
+        } else if (puntuacion >= 80) {
+            grado = 'B';
+        } else if (puntuacion >= 70) {
+            grado = 'C';
+        } else if (puntuacion >= 60) {
+            grado = 'D';
+        } else {
+            grado = 'F';
+        }
+        System.out.println("Tu calificación es: " + grado);
+    }
+}
+```
+
+### Selección Múltiple (`switch`)
+
+Permite ejecutar diferentes bloques de código basados en el valor de una variable o expresión. Es útil cuando tienes muchas ramas `if-else if` basadas en el mismo valor.
+
+**Sintaxis:**
+
+```java
+switch (variableOExpresion) {
+    case valor1:
+        // Código para valor1
+        break; // Importante para salir del switch
+    case valor2:
+        // Código para valor2
+        break;
+    // ... más casos
+    default:
+        // Código si ningún caso coincide (opcional)
+        break;
+}
+```
+
+**Ejemplo:**
+
+```java
+public class SwitchCase {
+    public static void main(String[] args) {
+        int diaSemana = 3; // 1=Lunes, 2=Martes, etc.
+        String nombreDia;
+
+        switch (diaSemana) {
+            case 1:
+                nombreDia = "Lunes";
+                break;
+            case 2:
+                nombreDia = "Martes";
+                break;
+            case 3:
+                nombreDia = "Miércoles";
+                break;
+            case 4:
+                nombreDia = "Jueves";
+                break;
+            case 5:
+                nombreDia = "Viernes";
+                break;
+            case 6:
+                nombreDia = "Sábado";
+                break;
+            case 7:
+                nombreDia = "Domingo";
+                break;
+            default:
+                nombreDia = "Día inválido";
+                break;
+        }
+        System.out.println("Hoy es: " + nombreDia);
+
+        // Ejemplo con String (Java 7+)
+        String fruta = "Manzana";
+        switch (fruta) {
+            case "Manzana":
+                System.out.println("Es una fruta roja o verde.");
+                break;
+            case "Banana":
+                System.out.println("Es una fruta amarilla.");
+                break;
+            default:
+                System.out.println("Fruta desconocida.");
+                break;
+        }
+    }
+}
+```
+
+-----
+
+## 4\. Estructuras de Control de Flujo de Datos Iterativas
+
+Las estructuras iterativas (bucles o ciclos) permiten ejecutar un bloque de código repetidamente.
+
+### `for`
+
+Ideal cuando se conoce de antemano el número de iteraciones.
+
+**Sintaxis:**
+
+```java
+for (inicializacion; condicion; actualizacion) {
+    // Código a repetir
+}
+```
+
+  * **inicializacion:** Se ejecuta una vez al inicio.
+  * **condicion:** Se evalúa antes de cada iteración. Si es `true`, el bucle continúa.
+  * **actualizacion:** Se ejecuta al final de cada iteración.
+
+**Ejemplo:**
+
+```java
+public class BucleFor {
+    public static void main(String[] args) {
+        // Imprimir números del 1 al 5
+        System.out.println("Números del 1 al 5:");
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(i);
+        }
+
+        // Sumar los primeros 10 números
+        int suma = 0;
+        for (int i = 1; i <= 10; i++) {
+            suma += i; // Equivalente a suma = suma + i;
+        }
+        System.out.println("La suma de los primeros 10 números es: " + suma);
+
+        // Bucle for decreciente
+        System.out.println("Cuenta regresiva:");
+        for (int i = 5; i > 0; i--) {
+            System.out.println(i);
+        }
+    }
+}
+```
+
+### `while`
+
+Ideal cuando el número de iteraciones es desconocido y depende de una condición.
+
+**Sintaxis:**
+
+```java
+while (condicion) {
+    // Código a repetir mientras la condición sea verdadera
+    // Es CRÍTICO que alguna instrucción dentro del bucle
+    // eventualmente haga que la condición sea falsa,
+    // de lo contrario, será un bucle infinito.
+}
+```
+
+**Ejemplo:**
+
+```java
+import java.util.Scanner; // Necesitamos esta clase para leer entrada del usuario
+
+public class BucleWhile {
+    public static void main(String[] args) {
+        // Ejemplo simple: Imprimir números del 1 al 5
+        System.out.println("Números del 1 al 5 (con while):");
+        int i = 1; // Inicialización fuera del bucle
+        while (i <= 5) { // Condición
+            System.out.println(i);
+            i++; // Actualización dentro del bucle
+        }
+
+        // Ejemplo con entrada del usuario: Pedir número hasta que sea positivo
+        Scanner scanner = new Scanner(System.in);
+        int numero;
+
+        System.out.println("Introduce un número positivo:");
+        numero = scanner.nextInt();
+
+        while (numero <= 0) {
+            System.out.println("Error: El número debe ser positivo. Inténtalo de nuevo:");
+            numero = scanner.nextInt();
+        }
+        System.out.println("Número positivo introducido: " + numero);
+
+        scanner.close(); // Siempre cierra el scanner cuando no lo necesites más
+    }
+}
+```
+
+### `do...while`
+
+Similar a `while`, pero garantiza que el bloque de código se ejecute al menos una vez, ya que la condición se evalúa al final de cada iteración.
+
+**Sintaxis:**
+
+```java
+do {
+    // Código a repetir
+    // Se ejecuta al menos una vez
+} while (condicion); // La condición se evalúa aquí
+```
+
+**Ejemplo:**
+
+```java
+import java.util.Scanner;
+
+public class BucleDoWhile {
+    public static void main(String[] args) {
+        // Ejemplo: Pedir una contraseña hasta que sea correcta
+        Scanner scanner = new Scanner(System.in);
+        String contrasena;
+        final String CONTRASENA_CORRECTA = "secreta123";
+
+        do {
+            System.out.print("Introduce la contraseña: ");
+            contrasena = scanner.nextLine(); // Leer la línea completa
+
+            if (!contrasena.equals(CONTRASENA_CORRECTA)) {
+                System.out.println("Contraseña incorrecta. Inténtalo de nuevo.");
+            }
+
+        } while (!contrasena.equals(CONTRASENA_CORRECTA)); // La condición se evalúa al final
+
+        System.out.println("¡Contraseña correcta! Acceso concedido.");
+        scanner.close();
+    }
+}
+```
+
+-----
+
+## 5\. Procedimientos (Métodos)
+
+En Java, los "procedimientos" y "funciones" se agrupan bajo el término general de **métodos**. Un método es un bloque de código que realiza una tarea específica.
+
+### Principio de la Programación Modular
+
+La programación modular es una técnica que consiste en dividir un programa grande en partes más pequeñas y manejables, llamadas módulos (en Java, estos módulos suelen ser clases y sus métodos).
+
+**Ventajas:**
+
+  * **Reutilización de Código:** Un método se escribe una vez y se puede llamar muchas veces.
+  * **Mantenimiento:** Facilita la depuración y modificación del código.
+  * **Legibilidad:** El código es más fácil de entender y seguir.
+  * **Colaboración:** Diferentes desarrolladores pueden trabajar en distintos módulos simultáneamente.
+
+### Acciones (Métodos `void`)
+
+Son métodos que realizan una tarea pero **no devuelven ningún valor**. Se declaran con la palabra clave `void`.
+
+**Sintaxis:**
+
+```java
+modificadorDeAcceso static void nombreMetodo(parametros) {
+    // Código de la acción
+}
+```
+
+  * `modificadorDeAcceso`: `public`, `private`, `protected`. (Por ahora, usaremos `public`).
+  * `static`: Permite llamar al método directamente desde la clase `main` sin crear un objeto. (Para este curso, los usaremos).
+  * `void`: Indica que no devuelve ningún valor.
+
+**Ejemplo:**
+
+```java
+public class AccionesEnJava {
+
+    // Método que no recibe parámetros y no devuelve valor
+    public static void saludar() {
+        System.out.println("¡Hola a todos!");
+    }
+
+    // Método que recibe un parámetro y no devuelve valor
+    public static void imprimirMensaje(String mensaje) {
+        System.out.println("Mensaje: " + mensaje);
+    }
+
+    // Método que recibe varios parámetros y no devuelve valor
+    public static void mostrarDatos(String nombre, int edad) {
+        System.out.println("Nombre: " + nombre + ", Edad: " + edad);
+    }
+
+    public static void main(String[] args) {
+        saludar(); // Llamada al método sin parámetros
+        imprimirMensaje("Bienvenidos al curso de Java."); // Llamada al método con un parámetro
+        mostrarDatos("Ana", 28); // Llamada al método con múltiples parámetros
+    }
+}
+```
+
+### Funciones (Métodos con tipo de retorno)
+
+Son métodos que realizan una tarea y **devuelven un valor** de un tipo de dato específico.
+
+**Sintaxis:**
+
+```java
+modificadorDeAcceso static TipoDeRetorno nombreMetodo(parametros) {
+    // Código de la función
+    return valor; // El valor debe ser del TipoDeRetorno especificado
+}
+```
+
+**Ejemplo:**
+
+```java
+public class FuncionesEnJava {
+
+    // Función que suma dos números enteros y devuelve un entero
+    public static int sumar(int a, int b) {
+        int resultado = a + b;
+        return resultado; // Retorna el valor de la suma
+    }
+
+    // Función que calcula el área de un círculo y devuelve un double
+    public static double calcularAreaCirculo(double radio) {
+        final double PI = 3.14159;
+        double area = PI * radio * radio;
+        return area; // Retorna el área calculada
+    }
+
+    // Función que verifica si un número es par y devuelve un booleano
+    public static boolean esPar(int numero) {
+        return numero % 2 == 0; // Retorna true si es par, false si es impar
+    }
+
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 5;
+        int sumaNumeros = sumar(num1, num2); // Llamada a la función y guardamos el resultado
+        System.out.println("La suma de " + num1 + " y " + num2 + " es: " + sumaNumeros);
+
+        double radioCirculo = 7.5;
+        double areaCalculada = calcularAreaCirculo(radioCirculo);
+        System.out.println("El área de un círculo con radio " + radioCirculo + " es: " + areaCalculada);
+
+        int miNumero = 4;
+        if (esPar(miNumero)) { // Llamada a la función en una condición
+            System.out.println(miNumero + " es un número par.");
+        } else {
+            System.out.println(miNumero + " es un número impar.");
+        }
+    }
+}
+```
+
+### Paso de Parámetros
+
+Cuando se llama a un método, se le pueden pasar valores (argumentos) que el método utiliza en su ejecución. Java utiliza dos mecanismos:
+
+#### Por Valor (Tipos Primitivos)
+
+Cuando pasas un tipo primitivo a un método, se pasa una **copia** del valor. Cualquier cambio que el método haga a esa copia **no afectará al valor original** fuera del método.
+
+**Ejemplo:**
+
+```java
+public class PasoPorValor {
+
+    public static void incrementar(int numero) {
+        System.out.println("Dentro del método (antes): " + numero);
+        numero = numero + 10; // Se modifica la COPIA del valor
+        System.out.println("Dentro del método (después): " + numero);
+    }
+
+    public static void main(String[] args) {
+        int miEntero = 5;
+        System.out.println("Antes de llamar al método: " + miEntero); // 5
+
+        incrementar(miEntero); // Pasamos una COPIA de miEntero
+
+        System.out.println("Después de llamar al método: " + miEntero); // Sigue siendo 5
+    }
+}
+```
+
+#### Por Referencia (Tipos de Referencia / Objetos)
+
+Cuando pasas un objeto (como un `String`, un arreglo, o cualquier instancia de una clase) a un método, lo que se pasa es una **copia de la referencia** (la dirección de memoria) del objeto. Esto significa que el método y el código que llamó al método apuntan al **mismo objeto** en memoria. Cualquier cambio que el método haga a las propiedades de ese objeto **sí afectará al objeto original**.
+
+**Importante:** En Java, los objetos en sí mismos nunca se pasan "por valor" en el sentido de que se copia todo el objeto. Siempre se pasa la referencia (la dirección) a donde el objeto vive en memoria. Sin embargo, la referencia en sí se pasa "por valor". Esto puede ser confuso, pero el efecto práctico es que puedes modificar el objeto original.
+
+**Ejemplo:**
+
+```java
+public class PasoPorReferencia {
+
+    // Método que modifica un arreglo (un objeto)
+    public static void modificarArreglo(int[] arr) {
+        System.out.println("Dentro del método (antes): arr[0] = " + arr[0]);
+        arr[0] = 99; // Modifica el elemento del arreglo original
+        System.out.println("Dentro del método (después): arr[0] = " + arr[0]);
+    }
+
+    // Clase simple para demostrar el paso por referencia con un objeto personalizado
+    static class Persona {
+        String nombre;
+        Persona(String nombre) {
+            this.nombre = nombre;
+        }
+    }
+
+    public static void cambiarNombre(Persona p) {
+        System.out.println("Dentro del método (antes): " + p.nombre);
+        p.nombre = "Pedro"; // Modifica la propiedad del objeto original
+        System.out.println("Dentro del método (después): " + p.nombre);
+    }
+
+
+    public static void main(String[] args) {
+        // Ejemplo con arreglo
+        int[] miArreglo = {1, 2, 3};
+        System.out.println("Antes de llamar al método (arreglo): miArreglo[0] = " + miArreglo[0]); // 1
+        modificarArreglo(miArreglo); // Pasamos la referencia del arreglo
+        System.out.println("Después de llamar al método (arreglo): miArreglo[0] = " + miArreglo[0]); // 99
+
+        System.out.println("--------------------");
+
+        // Ejemplo con objeto personalizado
+        Persona juan = new Persona("Juan");
+        System.out.println("Antes de llamar al método (persona): " + juan.nombre); // Juan
+        
+        cambiarNombre(juan); // Pasamos la referencia del objeto Persona
+        System.out.println("Después de llamar al método (persona): " + juan.nombre); // Pedro
+
+        // Importante: No puedes reasignar la referencia a un nuevo objeto y esperar que el original cambie
+        Persona ana = new Persona("Ana");
+        System.out.println("Antes de intentar reasignar: " + ana.nombre); // Ana
+        intentarReasignar(ana);
+        System.out.println("Después de intentar reasignar: " + ana.nombre); // Sigue siendo Ana
+    }
+
+    public static void intentarReasignar(Persona p) {
+        p = new Persona("Nuevo Nombre"); // Esto crea un NUEVO objeto y 'p' apunta a él,
+                                        // pero no cambia el objeto al que 'ana' apunta en main.
+        System.out.println("Dentro de reasignar (después): " + p.nombre); // Nuevo Nombre
+    }
+}
+```
+
+-----
+
+## 6\. Arreglos (Arrays)
+
+Los arreglos son estructuras de datos que permiten almacenar una colección de elementos del **mismo tipo** en ubicaciones de memoria contiguas. Se acceden a los elementos mediante un **índice**, que comienza en `0`.
+
+### Arreglos Unidimensionales
+
+Colecciones de elementos organizados en una sola fila o columna.
+
+**Declaración e Inicialización:**
+
+```java
+// Declaración
+tipoDeDato[] nombreArreglo; // Forma preferida
+tipoDeDato nombreArreglo[]; // También válida, pero menos común
+
+// Inicialización
+nombreArreglo = new tipoDeDato[tamano]; // Crear un arreglo de tamaño fijo
+nombreArreglo = {valor1, valor2, ...}; // Inicializar con valores directamente
+
+// Declaración e inicialización en una sola línea
+tipoDeDato[] nombreArreglo = new tipoDeDato[tamano];
+tipoDeDato[] nombreArreglo = {valor1, valor2, ...};
+```
+
+**Acceso a elementos:** `nombreArreglo[indice]`
+
+**Longitud del arreglo:** `nombreArreglo.length`
+
+**Ejemplo:**
+
+```java
+public class ArreglosUnidimensionales {
+    public static void main(String[] args) {
+        // Declarar e inicializar un arreglo de enteros
+        int[] numeros = new int[5]; // Un arreglo para 5 enteros
+
+        // Asignar valores a los elementos
+        numeros[0] = 10; // Primer elemento (índice 0)
+        numeros[1] = 20;
+        numeros[2] = 30;
+        numeros[3] = 40;
+        numeros[4] = 50; // Último elemento (índice 4)
+
+        // Acceder e imprimir elementos
+        System.out.println("Elemento en índice 0: " + numeros[0]); // Salida: 10
+        System.out.println("Elemento en índice 3: " + numeros[3]); // Salida: 40
+
+        // Longitud del arreglo
+        System.out.println("Longitud del arreglo: " + numeros.length); // Salida: 5
+
+        // Recorrer el arreglo con un bucle for
+        System.out.println("Todos los elementos del arreglo:");
+        for (int i = 0; i < numeros.length; i++) {
+            System.out.println("numeros[" + i + "] = " + numeros[i]);
+        }
+
+        // Declarar e inicializar un arreglo de Strings directamente
+        String[] frutas = {"Manzana", "Banana", "Cereza", "Durazno"};
+        System.out.println("\nFrutas en el arreglo:");
+        for (String fruta : frutas) { // Bucle for-each (simplificado para colecciones)
+            System.out.println(fruta);
+        }
+    }
+}
+```
+
+#### Algoritmos de Búsqueda
+
+Permiten encontrar la posición o existencia de un elemento en un arreglo.
+
+  * **Búsqueda Lineal (Secuencial):** Recorre el arreglo elemento por elemento hasta encontrar el objetivo o llegar al final. Es simple pero ineficiente para arreglos grandes.
+
+**Ejemplo:**
+
+```java
+public class BusquedaLineal {
+    public static void main(String[] args) {
+        int[] numeros = {5, 12, 3, 8, 15, 1};
+        int valorBuscado = 8;
+        int posicion = -1; // -1 indica que no se encontró
+
+        for (int i = 0; i < numeros.length; i++) {
+            if (numeros[i] == valorBuscado) {
+                posicion = i;
+                break; // Se encontró, salimos del bucle
+            }
+        }
+
+        if (posicion != -1) {
+            System.out.println("El valor " + valorBuscado + " se encontró en la posición: " + posicion);
+        } else {
+            System.out.println("El valor " + valorBuscado + " no se encontró en el arreglo.");
+        }
+    }
+}
+```
+
+  * **Búsqueda Binaria:** Requiere que el arreglo esté **ordenado**. Divide el arreglo repetidamente a la mitad para reducir el espacio de búsqueda. Mucho más eficiente que la lineal para arreglos grandes. (Para un curso Nivel I, la lineal es fundamental, la binaria es importante mencionar su existencia y pre-requisito).
+
+      * **Nota para el curso:** Podríamos ver la implementación si el tiempo lo permite y los estudiantes han entendido la ordenación. Para este esquema, solo se muestra la idea.
+
+#### Algoritmos de Ordenamiento
+
+Reorganizan los elementos de un arreglo en un orden específico (ascendente o descendente).
+
+  * **Ordenamiento por Burbuja (Bubble Sort):** Compara pares de elementos adyacentes y los intercambia si están en el orden incorrecto. Repite el proceso hasta que no haya más intercambios. Simple de entender, pero ineficiente.
+
+**Ejemplo:**
+
+```java
+import java.util.Arrays; // Utilidad para imprimir arreglos fácilmente
+
+public class BubbleSort {
+    public static void main(String[] args) {
+        int[] numeros = {64, 34, 25, 12, 22, 11, 90};
+
+        System.out.println("Arreglo original: " + Arrays.toString(numeros));
+
+        int n = numeros.length;
+        // Bucle externo para pases
+        for (int i = 0; i < n - 1; i++) {
+            // Bucle interno para comparaciones e intercambios
+            for (int j = 0; j < n - i - 1; j++) {
+                // Si el elemento actual es mayor que el siguiente, intercámbiarlos
+                if (numeros[j] > numeros[j + 1]) {
+                    // Intercambio
+                    int temp = numeros[j];
+                    numeros[j] = numeros[j + 1];
+                    numeros[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("Arreglo ordenado: " + Arrays.toString(numeros));
+    }
+}
+```
+
+  * **Ordenamiento por Selección (Selection Sort):** Encuentra el elemento mínimo (o máximo) del sub-arreglo no ordenado y lo coloca al principio.
+
+      * **Nota para el curso:** Si hay tiempo, este es otro algoritmo de ordenamiento simple de comprender para contrastar con Bubble Sort.
+
+  * **`Arrays.sort()` (Método de la API de Java):** En la práctica, se utiliza el método `sort()` de la clase `java.util.Arrays`, que implementa algoritmos de ordenamiento mucho más eficientes (como Quicksort o MergeSort optimizado).
+
+**Ejemplo de uso de `Arrays.sort()`:**
+
+```java
+import java.util.Arrays;
+
+public class OrdenamientoJavaAPI {
+    public static void main(String[] args) {
+        int[] numeros = {64, 34, 25, 12, 22, 11, 90};
+        System.out.println("Arreglo original: " + Arrays.toString(numeros));
+
+        Arrays.sort(numeros); // ¡Ordena el arreglo!
+
+        System.out.println("Arreglo ordenado con Arrays.sort(): " + Arrays.toString(numeros));
+
+        String[] nombres = {"Juan", "Ana", "Carlos", "Betty"};
+        System.out.println("Nombres originales: " + Arrays.toString(nombres));
+        Arrays.sort(nombres); // También funciona con Strings (orden alfabético)
+        System.out.println("Nombres ordenados: " + Arrays.toString(nombres));
+    }
+}
+```
+
+### Arreglos Bidimensionales (Matrices)
+
+Representan colecciones de elementos organizados en filas y columnas, como una tabla.
+
+**Declaración e Inicialización:**
+
+```java
+// Declaración
+tipoDeDato[][] nombreMatriz;
+
+// Inicialización
+nombreMatriz = new tipoDeDato[numFilas][numColumnas]; // Crear una matriz de tamaño fijo
+nombreMatriz = {{valor1, valor2}, {valor3, valor4}}; // Inicializar con valores directamente
+
+// Declaración e inicialización en una sola línea
+tipoDeDato[][] nombreMatriz = new tipoDeDato[numFilas][numColumnas];
+tipoDeDato[][] nombreMatriz = {{valor1, valor2}, {valor3, valor4}};
+```
+
+**Acceso a elementos:** `nombreMatriz[fila][columna]`
+
+**Ejemplo:**
+
+```java
+public class ArreglosBidimensionales {
+    public static void main(String[] args) {
+        // Declarar e inicializar una matriz 3x3
+        int[][] matriz = new int[3][3];
+
+        // Asignar valores a la matriz
+        matriz[0][0] = 1;
+        matriz[0][1] = 2;
+        matriz[0][2] = 3;
+        matriz[1][0] = 4;
+        matriz[1][1] = 5;
+        matriz[1][2] = 6;
+        matriz[2][0] = 7;
+        matriz[2][1] = 8;
+        matriz[2][2] = 9;
+
+        // O inicialización directa
+        int[][] matrizNumeros = {
+            {10, 20, 30},
+            {40, 50, 60},
+            {70, 80, 90}
+        };
+
+        // Acceder a un elemento específico
+        System.out.println("Elemento en (0,0): " + matriz[0][0]); // 1
+        System.out.println("Elemento en (1,2): " + matriz[1][2]); // 6
+    }
+}
+```
+
+#### Recorrido de Matrices
+
+Se utilizan bucles anidados (`for` anidados) para acceder a cada elemento de la matriz. Un bucle externo para las filas y un bucle interno para las columnas.
+
+**Ejemplo:**
+
+```java
+public class RecorridoMatriz {
+    public static void main(String[] args) {
+        int[][] matriz = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        System.out.println("Contenido de la matriz:");
+        // Recorrido por filas
+        for (int i = 0; i < matriz.length; i++) { // Bucle para las filas (matriz.length da el número de filas)
+            for (int j = 0; j < matriz[i].length; j++) { // Bucle para las columnas (matriz[i].length da el número de columnas en la fila i)
+                System.out.print(matriz[i][j] + "\t"); // Imprime el elemento y un tabulador
+            }
+            System.out.println(); // Salto de línea al final de cada fila
+        }
+
+        // Ejemplo: Sumar todos los elementos de la matriz
+        int sumaTotal = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                sumaTotal += matriz[i][j];
+            }
+        }
+        System.out.println("\nLa suma de todos los elementos es: " + sumaTotal);
+
+        // Recorrido para imprimir la diagonal principal
+        System.out.println("\nDiagonal Principal:");
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print(matriz[i][i] + "\t");
+        }
+        System.out.println();
+    }
+}
+```
+
+-----
+
+## 7\. Archivos de Texto (Lectura y Escritura)
+
+La capacidad de interactuar con archivos es fundamental para muchas aplicaciones. Java proporciona clases en el paquete `java.io` para manejar operaciones de entrada/salida (I/O) de archivos.
+
+Para manejar archivos de texto, usaremos un enfoque de **Stream de Caracteres** (`Reader` y `Writer`) ya que son más adecuados para datos textuales, manejando la codificación de caracteres.
+
+**Conceptos clave:**
+
+  * **Ruta del archivo:** La ubicación del archivo en el sistema de archivos (ej. `C:\temp\miarchivo.txt` o `data/miarchivo.csv`).
+  * **Excepciones:** Las operaciones de archivo pueden fallar (archivo no encontrado, permisos denegados, etc.). Java exige que manejes estas situaciones usando bloques `try-catch`.
+  * **Cerrar recursos:** Es crucial cerrar los "streams" (flujos de datos) después de usarlos para liberar recursos del sistema. Se recomienda usar `try-with-resources` para esto.
+
+### Clase `File`
+
+Representa la ruta de un archivo o directorio en el sistema de archivos. Permite realizar operaciones como verificar existencia, crear, eliminar, renombrar, etc.
+
+**Ejemplo:**
+
+```java
+import java.io.File;
+
+public class ClaseFileEjemplo {
+    public static void main(String[] args) {
+        String rutaArchivo = "mi_archivo.txt"; // Ruta relativa al directorio de ejecución del programa
+        String rutaDirectorio = "mi_carpeta";
+
+        File archivo = new File(rutaArchivo);
+        File directorio = new File(rutaDirectorio);
+
+        // Verificar si existe
+        System.out.println("¿Existe " + rutaArchivo + "? " + archivo.exists());
+        System.out.println("¿Existe " + rutaDirectorio + "? " + directorio.exists());
+
+        // Crear directorio
+        if (!directorio.exists()) {
+            if (directorio.mkdir()) { // mkdir() para un solo directorio
+                System.out.println("Directorio '" + rutaDirectorio + "' creado.");
+            } else {
+                System.out.println("No se pudo crear el directorio '" + rutaDirectorio + "'.");
+            }
+        }
+
+        // ¿Es un archivo o un directorio?
+        System.out.println("¿Es '" + rutaArchivo + "' un archivo? " + archivo.isFile());
+        System.out.println("¿Es '" + rutaDirectorio + "' un directorio? " + directorio.isDirectory());
+
+        // Obtener el nombre
+        System.out.println("Nombre del archivo: " + archivo.getName());
+        System.out.println("Ruta absoluta del archivo: " + archivo.getAbsolutePath());
+
+        // Eliminar (¡Cuidado al usar esto!)
+        // if (archivo.exists()) {
+        //     if (archivo.delete()) {
+        //         System.out.println("Archivo '" + rutaArchivo + "' eliminado.");
+        //     }
+        // }
+    }
+}
+```
+
+### Clase `FileWriter`
+
+Se utiliza para escribir datos de caracteres en un archivo. Escribe directamente los caracteres.
+
+### Clase `PrintWriter`
+
+Una clase envoltorio (wrapper) que agrega funcionalidad conveniente sobre un `Writer`, como métodos `print()` y `println()` que son familiares de `System.out.println()`. Es la forma preferida para escribir texto formateado en archivos.
+
+**Ejemplo de Escritura en Archivos:**
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class EscrituraEnArchivos {
+    public static void main(String[] args) {
+        String nombreArchivo = "datos.txt";
+        String[] lineasDeTexto = {
+            "Esta es la primera línea.",
+            "Esta es la segunda línea con un número: " + 123,
+            "Y esta es la tercera línea."
+        };
+
+        // Usando try-with-resources para asegurar que el FileWriter/PrintWriter se cierre automáticamente
+        try (FileWriter fileWriter = new FileWriter(nombreArchivo); // true para añadir al final, false para sobrescribir
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+
+            for (String linea : lineasDeTexto) {
+                printWriter.println(linea); // Escribe la línea y añade un salto de línea
+            }
+            System.out.println("Datos escritos en el archivo '" + nombreArchivo + "' exitosamente.");
+
+        } catch (IOException e) {
+            System.err.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
+            e.printStackTrace(); // Imprime la traza completa del error
+        }
+    }
+}
+```
+
+### Clase `FileReader`
+
+Se utiliza para leer datos de caracteres de un archivo. Lee caracteres uno por uno o en pequeños bloques.
+
+### Clase `BufferedReader`
+
+Una clase envoltorio que agrega funcionalidad de **buffering** sobre un `Reader`, lo que mejora significativamente el rendimiento de la lectura, especialmente de línea en línea (con el método `readLine()`). Es la forma preferida para leer texto línea por línea.
+
+**Ejemplo de Lectura de Archivos:**
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class LecturaDeArchivos {
+    public static void main(String[] args) {
+        String nombreArchivo = "datos.txt"; // El archivo que creamos en el ejemplo anterior
+
+        // Usando try-with-resources para asegurar que el FileReader/BufferedReader se cierre automáticamente
+        try (FileReader fileReader = new FileReader(nombreArchivo);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+
+            String linea;
+            System.out.println("Contenido del archivo '" + nombreArchivo + "':");
+            // Leer línea por línea hasta el final del archivo (cuando readLine() devuelve null)
+            while ((linea = bufferedReader.readLine()) != null) {
+                System.out.println(linea);
+            }
+
+        } catch (IOException e) {
+            System.err.println("Ocurrió un error al leer el archivo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+-----
+

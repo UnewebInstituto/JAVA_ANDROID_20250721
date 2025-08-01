@@ -1,0 +1,698 @@
+
+## Agenda Telefónica con Java, Maven y Swing en NetBeans (Usando "Java Application")
+
+Este método de creación de proyecto automáticamente te generará una clase `Main.java` que no usaremos. La eliminaremos y configuraremos nuestro `JFrame` como la clase principal.
+
+### Paso 1: Creación del Proyecto en NetBeans
+
+1.  Abre **NetBeans IDE**.
+2.  Ve a **File \> New Project...** (o `Ctrl + Shift + N`).
+3.  En la ventana "New Project", selecciona **Java with Maven** y luego elige **Java Application**. Haz clic en **Next \>**.
+4.  En "Project Name", escribe `AgendaTelefonicaMavenApp`.
+5.  En "Group Id", puedes usar algo como `com.agenda.app` o tu propia convención.
+6.  En "Artifact Id", se generará automáticamente como `AgendaTelefonicaMavenApp`.
+7.  En "Version", déjalo como `1.0-SNAPSHOT`.
+8.  En "Package", puedes usar `com.agenda.app`.
+9.  **Importante:** Verás que no hay opción para desmarcar "Create Main Class". Esto es normal con esta plantilla. Simplemente haz clic en **Finish**.
+
+NetBeans creará el proyecto con la estructura de Maven y un archivo `Main.java` predeterminado dentro del paquete `com.agenda.app`.
+
+NetBeans creará la estructura de directorios estándar de Maven:
+
+```
+AgendaTelefonicaMavenApp
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── agenda
+    │   │           └── app
+    │   └── resources
+    └── test
+        └── java
+            └── com
+                └── agenda
+                    └── app
+```
+
+### Paso 2: Configuración Inicial del Proyecto y `pom.xml`
+
+
+1.  **Eliminar el `Main.java` generado:**
+*** No necesario, no se genera, se puede proseguir a partir del paso 3.
+      * En la ventana **Projects**, expande `AgendaTelefonicaMavenApp > Source Packages > com.agenda.app`.
+      * Verás el archivo `Main.java`. Haz clic derecho sobre él y selecciona **Delete**. Confirma la eliminación.
+
+2.  **Revisar el `pom.xml`:**
+
+      * Abre el archivo `pom.xml` (está en la raíz de tu proyecto `AgendaTelefonicaMavenApp`).
+      * Para esta aplicación Swing, **no necesitamos dependencias externas adicionales** más allá de las que ya vienen con el JDK (como Swing).
+      * Es posible que el `pom.xml` generado incluya dependencias para pruebas (JUnit) con `scope>test`. Puedes **eliminarlas** si lo deseas para evitar que Maven intente descargarlas si tienes problemas de conexión al repositorio. Tu aplicación no las necesita para funcionar.
+
+    Aquí tienes un ejemplo de cómo debería verse tu `pom.xml` (ajusta la versión de `maven.compiler.source` y `maven.compiler.target` a tu JDK, por ejemplo `11`, `17`, `21`):
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>com.agenda.app</groupId>
+        <artifactId>AgendaTelefonicaMavenApp</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>jar</packaging>
+        <properties>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <maven.compiler.source>11</maven.compiler.source> <maven.compiler.target>11</maven.compiler.target> </properties>
+
+        <dependencies>
+            </dependencies>
+    </project>
+    ```
+
+### Paso 3: Diseñar la Interfaz de Usuario (GUI)
+
+Ahora, crearemos el `JFrame` para nuestra aplicación Swing.
+
+1.  En la ventana **Projects**, asegúrate de que estás en tu proyecto `AgendaTelefonicaMavenApp`.
+2.  Haz clic derecho en tu paquete (`com.agenda.app`) y selecciona **New \> JFrame Form...**.
+3.  En "Class Name", escribe `AgendaFrame`. Haz clic en **Finish**.
+
+NetBeans abrirá el diseñador visual de `AgendaFrame`. Arrastra y suelta los siguientes componentes desde la **Palette** y renombra sus variables (clic derecho sobre el componente \> Change Variable Name...) como se indica a continuación para facilitar el manejo en el código:
+
+  * **JLabels:** Para 
+  "Nombre:", 
+  "Apellido:", 
+  "Teléfono:", 
+  "Email:", 
+  "Buscar por:", 
+  "Mensajes / Resultados:", 
+  y un título principal (ej. "Administración de Contactos").
+
+  * **JTextFields:** 
+  `txtNombre`, 
+  `txtApellido`, 
+  `txtTelefono`, 
+  `txtEmail`, 
+  `txtBuscar`.
+
+  * **JButtons:** 
+  `btnGuardar`, 
+  `btnBuscar`, 
+  `btnActualizar`, 
+  `btnEliminar`, 
+  `btnMostrarTodo`.
+
+  * **JRadioButton:** 
+  `rbNombre` (Texto: "Nombre"), 
+  `rbApellido` (Texto: "Apellido").
+
+* **¡Importante\!** Arrastra un `ButtonGroup` desde la categoría "Swing Other" en la Palette y suéltalo en el formulario (es invisible). Luego, en las propiedades de `rbNombre` y `rbApellido`, asigna este `ButtonGroup` a su propiedad `buttonGroup`.
+
+  * **JTextArea:** `txtAreaResultados` (hazlo lo suficientemente grande).
+  * **JScrollPane:** Arrastra un `JScrollPane` y luego arrastra `txtAreaResultados` dentro de él para añadir barras de desplazamiento.
+
+Organiza los componentes de forma que la interfaz sea clara y fácil de usar.
+
+### Paso 4: Implementar la Lógica (Código Java para `AgendaFrame.java`)
+
+Ahora, ve a la vista de **Source** (código) de `AgendaFrame.java` (donde diseñaste la GUI). **Copia y pega todo el siguiente código**, reemplazando lo que NetBeans haya generado.
+
+**Asegúrate de que la línea `package com.agenda.app;` al principio del archivo coincida exactamente con el nombre de tu paquete Maven.**
+
+```java
+package com.agenda.app; // <--- ¡ASEGÚRATE DE QUE ESTE SEA TU PAQUETE!
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+public class AgendaFrame extends javax.swing.JFrame {
+
+    private static final String ARCHIVO_AGENDA = "agenda.txt";
+
+    public AgendaFrame() {
+        initComponents(); // Inicializa los componentes de Swing (generado por NetBeans)
+        // Agrupar los JRadioButtons para que solo uno pueda ser seleccionado
+        buttonGroupBusqueda.add(rbNombre);
+        buttonGroupBusqueda.add(rbApellido);
+        rbNombre.setSelected(true); // Selecciona 'Nombre' por defecto
+        mostrarRegistrosEnTextArea(); // Carga y muestra los registros al iniciar
+    }
+
+    /**
+     * Este método es generado automáticamente por el diseñador de NetBeans.
+     * NO LO MODIFIQUES MANUALMENTE. Cualquier cambio en la interfaz gráfica
+     * debe hacerse en la vista de diseño.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        buttonGroupBusqueda = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        rbNombre = new javax.swing.JRadioButton();
+        rbApellido = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaResultados = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        btnMostrarTodo = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Agenda Telefónica CSV (Maven)");
+
+        jLabel1.setText("Nombre:");
+
+        jLabel2.setText("Apellido:");
+
+        jLabel3.setText("Teléfono:");
+
+        jLabel4.setText("Email:");
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Buscar por:");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        rbNombre.setText("Nombre");
+
+        rbApellido.setText("Apellido");
+
+        jLabel6.setText("Mensajes / Resultados:");
+
+        txtAreaResultados.setColumns(20);
+        txtAreaResultados.setRows(5);
+        jScrollPane1.setViewportView(txtAreaResultados);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("Administración de Contactos");
+
+        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtApellido)
+                                    .addComponent(txtTelefono)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbApellido))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnMostrarTodo)))
+                        .addContainerGap(30, Short.MAX_VALUE))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminar))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(rbNombre)
+                    .addComponent(rbApellido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnMostrarTodo))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    // --- Métodos de Lógica de Negocio y Archivo ---
+
+    private void guardarContacto(String nombre, String apellido, String telefono, String email) {
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar si el contacto ya existe para evitar duplicados (por nombre y apellido)
+        if (contactoExiste(nombre, apellido)) {
+            JOptionPane.showMessageDialog(this, "Ya existe un contacto con ese nombre y apellido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_AGENDA, true))) {
+            writer.write(String.format("%s,%s,%s,%s%n", nombre, apellido, telefono, email));
+            JOptionPane.showMessageDialog(this, "Contacto guardado exitosamente.");
+            limpiarCampos();
+            mostrarRegistrosEnTextArea(); // Actualizar la lista mostrada
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar el contacto: " + e.getMessage(), "Error de Archivo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean contactoExiste(String nombre, String apellido) {
+        try (Scanner scanner = new Scanner(new File(ARCHIVO_AGENDA))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] partes = linea.split(",");
+                if (partes.length >= 2 && partes[0].equalsIgnoreCase(nombre) && partes[1].equalsIgnoreCase(apellido)) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Archivo no existe, no hay contactos. No es un error crítico aquí.
+        }
+        return false;
+    }
+
+    private List<String[]> cargarContactos() {
+        List<String[]> contactos = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File(ARCHIVO_AGENDA))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] partes = linea.split(",");
+                if (partes.length == 4) { // Asegurar que tenga los 4 campos esperados
+                    contactos.add(partes);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // El archivo no existe, simplemente retorna una lista vacía.
+        }
+        return contactos;
+    }
+
+    private void guardarContactos(List<String[]> contactos) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_AGENDA, false))) { // false para sobrescribir
+            for (String[] contacto : contactos) {
+                writer.write(String.format("%s,%s,%s,%s%n", contacto[0], contacto[1], contacto[2], contacto[3]));
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar el archivo: " + e.getMessage(), "Error de Archivo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void buscarContactos(String criterioBusqueda, boolean porNombre) {
+        txtAreaResultados.setText(""); // Limpiar resultados anteriores
+        List<String[]> resultados = new ArrayList<>();
+        List<String[]> contactos = cargarContactos();
+
+        if (criterioBusqueda.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un valor para buscar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        for (String[] contacto : contactos) {
+            String valorABuscar = porNombre ? contacto[0] : contacto[1]; // Nombre o Apellido
+            if (valorABuscar.toLowerCase().contains(criterioBusqueda.toLowerCase())) {
+                resultados.add(contacto);
+            }
+        }
+
+        if (resultados.isEmpty()) {
+            txtAreaResultados.setText("No se encontraron contactos para '" + criterioBusqueda + "'.");
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Resultados de búsqueda para '").append(criterioBusqueda).append("':\n");
+            for (String[] contacto : resultados) {
+                sb.append("Nombre: ").append(contacto[0])
+                  .append(", Apellido: ").append(contacto[1])
+                  .append(", Teléfono: ").append(contacto[2])
+                  .append(", Email: ").append(contacto[3]).append("\n");
+            }
+            txtAreaResultados.setText(sb.toString());
+        }
+    }
+
+    private void actualizarContacto(String nombreOriginal, String apellidoOriginal, String nuevoNombre, String nuevoApellido, String nuevoTelefono, String nuevoEmail) {
+        if (nuevoNombre.isEmpty() || nuevoApellido.isEmpty() || nuevoTelefono.isEmpty() || nuevoEmail.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos para la actualización.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<String[]> contactos = cargarContactos();
+        boolean encontrado = false;
+        for (int i = 0; i < contactos.size(); i++) {
+            String[] contacto = contactos.get(i);
+            if (contacto[0].equalsIgnoreCase(nombreOriginal) && contacto[1].equalsIgnoreCase(apellidoOriginal)) {
+                contactos.set(i, new String[]{nuevoNombre, nuevoApellido, nuevoTelefono, nuevoEmail});
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            guardarContactos(contactos);
+            JOptionPane.showMessageDialog(this, "Contacto actualizado exitosamente.");
+            limpiarCampos();
+            mostrarRegistrosEnTextArea();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el contacto original para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void eliminarContacto(String nombre, String apellido) {
+        List<String[]> contactos = cargarContactos();
+        List<String[]> contactosActualizados = new ArrayList<>();
+        boolean encontrado = false;
+
+        for (String[] contacto : contactos) {
+            if (!contacto[0].equalsIgnoreCase(nombre) || !contacto[1].equalsIgnoreCase(apellido)) {
+                contactosActualizados.add(contacto);
+            } else {
+                encontrado = true;
+            }
+        }
+
+        if (encontrado) {
+            guardarContactos(contactosActualizados);
+            JOptionPane.showMessageDialog(this, "Contacto eliminado exitosamente.");
+            limpiarCampos();
+            mostrarRegistrosEnTextArea();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el contacto a eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void mostrarRegistrosEnTextArea() {
+        txtAreaResultados.setText(""); // Limpiar el área antes de mostrar
+        List<String[]> contactos = cargarContactos();
+        if (contactos.isEmpty()) {
+            txtAreaResultados.setText("No hay contactos en la agenda.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Lista de Contactos ---\n");
+        for (String[] contacto : contactos) {
+            sb.append("Nombre: ").append(contacto[0])
+              .append(", Apellido: ").append(contacto[1])
+              .append(", Teléfono: ").append(contacto[2])
+              .append(", Email: ").append(contacto[3]).append("\n");
+        }
+        txtAreaResultados.setText(sb.toString());
+    }
+
+    private void limpiarCampos() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
+        txtBuscar.setText("");
+    }
+
+    // --- Métodos de Eventos (ActionListeners) ---
+    // Estos métodos se asocian a los botones en el diseñador de NetBeans
+    // haciendo clic derecho sobre el botón y seleccionando Events > Action > actionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        guardarContacto(txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText());
+    }                                        
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        String criterio = txtBuscar.getText();
+        boolean porNombre = rbNombre.isSelected();
+        buscarContactos(criterio, porNombre);
+    }                                       
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // Para actualizar, pedimos el nombre y apellido ORIGINALES del contacto
+        // y luego usamos los valores actuales de los JTextField para los nuevos datos.
+        String nombreOriginal = JOptionPane.showInputDialog(this, "Ingrese el nombre del contacto a actualizar:");
+        String apellidoOriginal = JOptionPane.showInputDialog(this, "Ingrese el apellido del contacto a actualizar:");
+
+        if (nombreOriginal != null && !nombreOriginal.isEmpty() && apellidoOriginal != null && !apellidoOriginal.isEmpty()) {
+            actualizarContacto(nombreOriginal, apellidoOriginal, 
+                               txtNombre.getText(), txtApellido.getText(), 
+                               txtTelefono.getText(), txtEmail.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar el nombre y apellido del contacto a actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }                                           
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        String nombreEliminar = JOptionPane.showInputDialog(this, "Ingrese el nombre del contacto a eliminar:");
+        String apellidoEliminar = JOptionPane.showInputDialog(this, "Ingrese el apellido del contacto a eliminar:");
+
+        if (nombreEliminar != null && !nombreEliminar.isEmpty() && apellidoEliminar != null && !apellidoEliminar.isEmpty()) {
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar a " + nombreEliminar + " " + apellidoEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                eliminarContacto(nombreEliminar, apellidoEliminar);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar el nombre y apellido del contacto a eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }                                         
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        mostrarRegistrosEnTextArea();
+    }                                            
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AgendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AgendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AgendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AgendaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AgendaFrame().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnMostrarTodo;
+    private javax.swing.ButtonGroup buttonGroupBusqueda;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbApellido;
+    private javax.swing.JRadioButton rbNombre;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextArea txtAreaResultados;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
+    // End of variables declaration                   
+}
+```
+
+### Paso 5: Configurar la Clase Principal para la Ejecución
+
+Nota: La clase Main.java, no fue generada.
+Como eliminamos el `Main.java` generado, necesitamos decirle a NetBeans cuál es la clase que debe ejecutar cuando inicie tu aplicación.
+
+1.  Haz clic derecho en el nodo principal de tu proyecto (`AgendaTelefonicaMavenApp`) en la ventana **Projects**.
+2.  Selecciona **Properties**.
+3.  En la ventana de propiedades, ve a la categoría **Run**.
+4.  En el campo "Main Class", haz clic en el botón **Browse...**.
+5.  Busca y selecciona tu clase `AgendaFrame` (que estará en `com.agenda.app.AgendaFrame`).
+6.  Haz clic en **Select Main Class** y luego en **OK** en la ventana de propiedades del proyecto.
+
+### Paso 6: Ejecutar la Aplicación
+
+1.  Guarda todos los archivos (`Ctrl + S`).
+2.  Haz clic derecho en el proyecto `AgendaTelefonicaMavenApp` en la ventana **Projects**.
+3.  Selecciona **Run**.
+
+Maven compilará el proyecto y ejecutará tu aplicación Swing. El archivo `agenda.txt` se creará en la raíz de tu proyecto (donde está el `pom.xml`) para almacenar los datos.
+
+Ahora tienes tu aplicación de Agenda Telefónica con la configuración de Maven y Swing, siguiendo el flujo de creación de proyecto "Java Application" en NetBeans.
+
+
+/**************************************************************************/
+
+Pasos para Generar Javadoc en NetBeans (Proyecto Maven)
+Maven tiene un plugin específico para Javadoc que se encarga de todo. NetBeans lo integra directamente.
+
+Asegúrate de tener comentarios de Javadoc en tu código:
+
+Aunque el código que te proporcioné tiene comentarios generales, para que el Javadoc sea útil, deberías añadir comentarios Javadoc (/** ... */) a tu clase AgendaFrame, a sus métodos principales (como guardarContacto, buscarContactos, etc.) y quizás a los campos.
+
+Ejemplo de comentario Javadoc para un método:
+
+Java
+
+/**
+ * Guarda un nuevo contacto en el archivo CSV.
+ * Realiza validaciones básicas antes de escribir el registro.
+ * @param nombre El nombre del contacto.
+ * @param apellido El apellido del contacto.
+ * @param telefono El número de teléfono del contacto.
+ * @param email La dirección de correo electrónico del contacto.
+ */
+private void guardarContacto(String nombre, String apellido, String telefono, String email) {
+    // ... tu código ...
+}
+Generar el Javadoc desde NetBeans:
+
+En la ventana Projects de NetBeans, busca tu proyecto AgendaTelefonicaMavenApp.
+
+Haz clic derecho en el nodo principal de tu proyecto (AgendaTelefonicaMavenApp).
+
+En el menú contextual, ve a "Custom" (o "Personalizar" si está en español).
+
+Selecciona "Generate Javadoc".
+
+(Nota: La imagen es un ejemplo, la ruta exacta en tu versión de NetBeans podría variar ligeramente, pero generalmente está bajo "Custom" o "Run Maven").
+
+Alternativamente, puedes ejecutar directamente el objetivo de Maven para Javadoc:
+
+Haz clic derecho en tu proyecto (AgendaTelefonicaMavenApp).
+
+Selecciona "Run Maven".
+
+En la ventana "Run Maven", en el campo "Goals", escribe: javadoc:javadoc
+
+Haz clic en "Run".
+
+Observa la salida en la ventana "Output":
+
+NetBeans ejecutará el objetivo de Maven para generar la documentación Javadoc. Verás el progreso en la ventana "Output" (normalmente en la parte inferior de NetBeans).
+
+Si la generación es exitosa, verás un mensaje similar a: BUILD SUCCESS al final.
+
+Localiza la documentación Javadoc generada:
+
+Una vez que el proceso haya terminado exitosamente, la documentación Javadoc se habrá generado en una carpeta dentro de tu proyecto.
+
+La ruta típica es:
+tu-proyecto/target/site/apidocs/
+
+En tu caso, sería:
+C:\Users\duque\OneDrive\Documents\Henry Duque\UNEWEB\.PROFESORES\HENRY_DUQUE\JAVA_ANOTACIONES\AgendaTelefonicaMavenApp\target\site\apidocs\
+
+Dentro de la carpeta apidocs, encontrarás un archivo llamado index.html. Abre este archivo con tu navegador web favorito para ver la documentación generada. Allí podrás navegar por tus clases, métodos y sus descripciones.
+

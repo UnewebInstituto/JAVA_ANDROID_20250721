@@ -1,0 +1,27 @@
+echo "# JAVA_ANDROID_20250721" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/UnewebInstituto/JAVA_ANDROID_20250721.git
+git push -u origin main
+
+
+git remote add origin https://github.com/UnewebInstituto/JAVA_ANDROID_20250721.git
+git branch -M main
+git push -u origin main
+
+
+JDK : JAVA DISTRIBUTION KIT
+
+JRE : JAVA RUNTIME ENVIRONMENT
+
+JVM : JAVA VIRTUAL MACHINE
+
+
+CÓDIGO FUENTE:
+*.java 
+   |
+   compilación
+   |
+*.class  (bytecode) interpretado por la máquina virtual

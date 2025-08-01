@@ -1,0 +1,883 @@
+
+# Curso de Java SE Nivel II: Programación Orientada a Objetos y GUI
+
+**Requisitos Previos:** Haber completado el Curso de Java SE Nivel I, con sólidos conocimientos en variables, tipos de datos, estructuras de control, métodos y arreglos.
+
+-----
+
+## 1\. Fundamentos Teóricos de la Programación Orientada a Objetos (POO)
+
+La POO es un paradigma de programación que utiliza "objetos" para diseñar aplicaciones y modelos informáticos. A diferencia de la programación estructurada que se centra en el "cómo hacer", la POO se centra en los "quién" y "qué" (los objetos y sus interacciones).
+
+### Historia
+
+El concepto de POO surgió en los años 60 con el lenguaje **Simula**, diseñado para simulaciones. Sin embargo, ganó popularidad en los 80 con lenguajes como **Smalltalk** y, sobre todo, **C++**. Java, desde su concepción en los 90, fue diseñado enteramente bajo el paradigma de la POO, lo que lo convierte en uno de sus máximos exponentes.
+
+### Características Clave de la POO (Pilares)
+
+La POO se basa en cuatro pilares fundamentales:
+
+1.  **Abstracción:**
+
+      * **En qué consiste:** Enfocarse en lo esencial de un objeto, ignorando los detalles irrelevantes. Es como ver un automóvil y pensar en "conducir" y "transportar", sin preocuparse por los detalles internos del motor.
+      * **En Java:** Se logra a través de **clases**, **interfaces** y **clases abstractas**. Define qué hace un objeto, no cómo lo hace.
+
+2.  **Encapsulamiento:**
+
+      * **En qué consiste:** Ocultar los detalles internos de un objeto y proteger su estado de accesos o modificaciones no autorizadas desde el exterior. Se expone solo una interfaz pública para interactuar con el objeto.
+      * **En Java:** Se logra mediante el uso de **modificadores de acceso** (`private`, `protected`, `public`) y los métodos **"getters" y "setters"**.
+
+3.  **Herencia:**
+
+      * **En qué consiste:** Permite que una clase (subclase o clase hija) adquiera las propiedades y comportamientos (atributos y métodos) de otra clase (superclase o clase padre). Promueve la reutilización de código y establece relaciones "es-un".
+      * **En Java:** Se usa la palabra clave `extends`. Una clase solo puede heredar de una única superclase (herencia simple).
+
+4.  **Polimorfismo:**
+
+      * **En qué consiste:** "Muchas formas". Permite que objetos de diferentes clases sean tratados como objetos de una superclase común. Un mismo método puede tener diferentes implementaciones en diferentes clases.
+      * **En Java:** Se logra a través de la **sobreescritura de métodos (Override)** y la **sobrecarga de métodos (Overload)**.
+
+### Ventajas de la POO
+
+  * **Modularidad:** Los programas se dividen en módulos (objetos), lo que facilita el desarrollo y mantenimiento.
+  * **Reutilización de Código:** La herencia y el diseño modular permiten reutilizar clases y componentes existentes.
+  * **Mantenimiento Sencillo:** Los cambios en una parte del sistema tienen un impacto mínimo en otras partes, gracias al encapsulamiento.
+  * **Mayor Legibilidad:** El código orientado a objetos a menudo es más fácil de entender porque modela el mundo real de manera más intuitiva.
+  * **Escalabilidad:** Facilita el crecimiento del software, ya que se pueden añadir nuevas funcionalidades sin afectar las existentes.
+  * **Resolución de Problemas Complejos:** Permite abordar sistemas complejos mediante la descomposición en objetos más pequeños y manejables.
+
+### Desventajas de la POO
+
+  * **Curva de Aprendizaje:** Comprender y aplicar los principios de la POO puede ser un desafío para principiantes.
+  * **Rendimiento Potencialmente Menor:** En algunos casos, la sobrecarga de la creación de objetos y la gestión de la JVM pueden resultar en un rendimiento ligeramente inferior comparado con la programación puramente procedural (aunque Java es altamente optimizado).
+  * **Mayor Consumo de Memoria:** La creación de muchos objetos puede aumentar el consumo de memoria.
+  * **Complejidad en Proyectos Pequeños:** Para proyectos muy simples, la POO puede parecer excesiva y añadir complejidad innecesaria.
+
+-----
+
+## 2\. Fundamentos Prácticos de la Programación Orientada a Objetos
+
+Aquí es donde los conceptos teóricos cobran vida al implementarlos en código Java.
+
+### Clase
+
+Una **clase** es un **plano (blueprint) o plantilla** para crear objetos. Define la estructura (atributos) y el comportamiento (métodos) que tendrán todos los objetos de ese tipo. No es un objeto en sí, sino una descripción de cómo serán los objetos.
+
+**Sintaxis básica:**
+
+```java
+public class NombreClase {
+    // Atributos (variables de instancia)
+    // Métodos (comportamientos)
+    // Constructores
+}
+```
+
+### Objeto
+
+Un **objeto** es una **instancia concreta** de una clase. Es una entidad real con un estado (valores de sus atributos) y un comportamiento (acciones que puede realizar).
+
+**Sintaxis de creación de objeto (instanciación):**
+
+```java
+NombreClase nombreObjeto = new NombreClase();
+```
+
+**Ejemplo de Clase y Objeto:**
+
+```java
+// Definición de la Clase Coche
+public class Coche {
+    // Atributos (características)
+    String marca;
+    String modelo;
+    int anio;
+    String color;
+    double velocidadActual;
+
+    // Método (comportamiento)
+    public void acelerar(double incremento) {
+        velocidadActual += incremento;
+        System.out.println("El coche " + marca + " " + modelo + " acelera. Velocidad actual: " + velocidadActual + " km/h");
+    }
+
+    public void frenar(double decremento) {
+        velocidadActual -= decremento;
+        if (velocidadActual < 0) {
+            velocidadActual = 0;
+        }
+        System.out.println("El coche " + marca + " " + modelo + " frena. Velocidad actual: " + velocidadActual + " km/h");
+    }
+
+    public void mostrarInfo() {
+        System.out.println("--- Información del Coche ---");
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Año: " + anio);
+        System.out.println("Color: " + color);
+        System.out.println("Velocidad Actual: " + velocidadActual + " km/h");
+        System.out.println("---------------------------");
+    }
+
+    public static void main(String[] args) {
+        // Creación de objetos (instancias de la clase Coche)
+        Coche miCoche = new Coche(); // Objeto 1
+        miCoche.marca = "Toyota";
+        miCoche.modelo = "Corolla";
+        miCoche.anio = 2020;
+        miCoche.color = "Gris";
+        miCoche.velocidadActual = 0.0;
+
+        Coche cocheDeVecino = new Coche(); // Objeto 2
+        cocheDeVecino.marca = "Honda";
+        cocheDeVecino.modelo = "Civic";
+        cocheDeVecino.anio = 2022;
+        cocheDeVecino.color = "Azul";
+        cocheDeVecino.velocidadActual = 20.0;
+
+        // Interactuando con los objetos
+        miCoche.mostrarInfo();
+        miCoche.acelerar(50);
+        miCoche.frenar(10);
+        miCoche.mostrarInfo();
+
+        System.out.println("\n--- Coche del Vecino ---");
+        cocheDeVecino.mostrarInfo();
+        cocheDeVecino.acelerar(30);
+    }
+}
+```
+
+### Atributo
+
+Los **atributos** (también llamados campos, variables de instancia o propiedades) son las características o datos que describen el estado de un objeto. Son variables declaradas dentro de una clase, pero fuera de cualquier método.
+
+**Ejemplo (revisar la clase `Coche` de arriba):**
+`marca`, `modelo`, `anio`, `color`, `velocidadActual` son atributos.
+
+### Método
+
+Los **métodos** son las acciones o comportamientos que un objeto puede realizar. Son funciones que pertenecen a una clase y operan sobre los datos (atributos) de los objetos de esa clase.
+
+**Ejemplo (revisar la clase `Coche` de arriba):**
+`acelerar()`, `frenar()`, `mostrarInfo()` son métodos.
+
+### Constructor
+
+Un **constructor** es un tipo especial de método que se utiliza para **inicializar un objeto** cuando se crea. Se llama automáticamente con la palabra clave `new`.
+
+  * Tiene el **mismo nombre que la clase**.
+  * **No tiene tipo de retorno** (ni siquiera `void`).
+  * Puede tener **parámetros** para inicializar los atributos del objeto con valores específicos.
+  * Si no defines ningún constructor, Java proporciona uno por defecto (el **constructor por defecto**), que no toma argumentos y no hace nada.
+
+**Ejemplo:**
+
+```java
+public class CocheConConstructor {
+    String marca;
+    String modelo;
+    int anio;
+    String color;
+    double velocidadActual;
+
+    // Constructor sin parámetros (constructor por defecto, si no se define otro)
+    public CocheConConstructor() {
+        this.marca = "Desconocida";
+        this.modelo = "Desconocido";
+        this.anio = 2000;
+        this.color = "Blanco";
+        this.velocidadActual = 0.0;
+        System.out.println("Se ha creado un coche con valores por defecto.");
+    }
+
+    // Constructor con parámetros
+    public CocheConConstructor(String marca, String modelo, int anio, String color) {
+        // 'this' se usa para diferenciar entre el atributo de la clase y el parámetro del constructor
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.color = color;
+        this.velocidadActual = 0.0; // Velocidad inicial siempre 0
+        System.out.println("Se ha creado un coche: " + marca + " " + modelo);
+    }
+
+    // Constructor con algunos parámetros y llamando a otro constructor (this())
+    public CocheConConstructor(String marca, String modelo) {
+        this(marca, modelo, 2023, "Negro"); // Llama al constructor con 4 parámetros
+        System.out.println("Se ha creado un coche (versión simplificada): " + marca + " " + modelo);
+    }
+
+    public void mostrarInfo() {
+        System.out.println("--- Información del Coche ---");
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Año: " + anio);
+        System.out.println("Color: " + color);
+        System.out.println("Velocidad Actual: " + velocidadActual + " km/h");
+        System.out.println("---------------------------");
+    }
+
+    public static void main(String[] args) {
+        // Usando el constructor con parámetros
+        CocheConConstructor miCoche = new CocheConConstructor("Ford", "Fiesta", 2021, "Rojo");
+        miCoche.mostrarInfo();
+
+        // Usando el constructor sin parámetros
+        CocheConConstructor cochePorDefecto = new CocheConConstructor();
+        cochePorDefecto.mostrarInfo();
+
+        // Usando el constructor con 2 parámetros
+        CocheConConstructor cocheRapido = new CocheConConstructor("Ferrari", "SF90");
+        cocheRapido.mostrarInfo();
+    }
+}
+```
+
+-----
+
+## 3\. Modos de Acceso a Atributos y Métodos (Encapsulamiento)
+
+Los modificadores de acceso controlan la visibilidad y accesibilidad de las clases, atributos, métodos y constructores. Son fundamentales para el **encapsulamiento**.
+
+  * **`public`:**
+
+      * **Visibilidad:** Accesible desde **cualquier lugar** (desde la misma clase, clases del mismo paquete, subclases en cualquier paquete y clases no-subclases en cualquier paquete).
+      * **Uso:** Para elementos que forman parte de la interfaz pública de la clase (métodos que definen el comportamiento externo, constantes públicas).
+
+  * **`protected`:**
+
+      * **Visibilidad:** Accesible desde la **misma clase**, clases del **mismo paquete** y **subclases** (herederas) en cualquier paquete.
+      * **Uso:** Para elementos que deben ser accesibles por clases relacionadas jerárquicamente.
+
+  * **`private`:**
+
+      * **Visibilidad:** Accesible **SOLO desde la misma clase** donde está declarado.
+      * **Uso:** El modificador más restrictivo. Se utiliza para ocultar la implementación interna de una clase, protegiendo sus atributos y métodos de accesos externos directos. Es la base del encapsulamiento.
+
+  * **(default/package-private):**
+
+      * **Visibilidad:** Si no se especifica ningún modificador, es accesible solo desde la **misma clase** y desde otras clases dentro del **mismo paquete**.
+      * **Uso:** Para elementos que solo necesitan ser visibles dentro de un módulo o componente específico.
+
+**Ejemplo de Modificadores de Acceso:**
+
+```java
+package com.ejemplo.acceso; // Definimos un paquete para ver las diferencias
+
+class ClaseBase { // Por defecto (package-private)
+    public String atributoPublico = "Soy público";
+    protected String atributoProtegido = "Soy protegido";
+    String atributoDefault = "Soy por defecto (package-private)";
+    private String atributoPrivado = "Soy privado";
+
+    public void metodoPublico() {
+        System.out.println("Método público llamado.");
+    }
+
+    protected void metodoProtegido() {
+        System.out.println("Método protegido llamado.");
+    }
+
+    void metodoDefault() {
+        System.out.println("Método por defecto llamado.");
+    }
+
+    private void metodoPrivado() {
+        System.out.println("Método privado llamado.");
+    }
+
+    public void accesoInterno() {
+        System.out.println("Acceso desde dentro de ClaseBase:");
+        System.out.println(atributoPublico);
+        System.out.println(atributoProtegido);
+        System.out.println(atributoDefault);
+        System.out.println(atributoPrivado); // Puede acceder al propio privado
+        metodoPrivado();
+    }
+}
+
+// Clase en el mismo paquete
+class ClaseEnMismoPaquete {
+    public void probarAcceso() {
+        ClaseBase cb = new ClaseBase();
+        System.out.println("\nAcceso desde ClaseEnMismoPaquete:");
+        System.out.println(cb.atributoPublico);
+        System.out.println(cb.atributoProtegido);
+        System.out.println(cb.atributoDefault);
+        // System.out.println(cb.atributoPrivado); // ERROR: private
+        cb.metodoPublico();
+        cb.metodoProtegido();
+        cb.metodoDefault();
+        // cb.metodoPrivado(); // ERROR: private
+    }
+}
+
+// Clase en otro paquete (simulada aquí con un comentario, idealmente en otro archivo .java y otro paquete)
+// package com.ejemplo.otro_paquete;
+// import com.ejemplo.acceso.ClaseBase;
+// class OtraClaseFueraPaquete { ... }
+
+// Main para probar
+public class ModificadoresAccesoMain {
+    public static void main(String[] args) {
+        ClaseBase cb = new ClaseBase();
+        cb.accesoInterno(); // Demuestra acceso interno
+
+        ClaseEnMismoPaquete cemp = new ClaseEnMismoPaquete();
+        cemp.probarAcceso();
+
+        // Acceso desde la clase Main (que está en el mismo paquete aquí)
+        System.out.println("\nAcceso desde la clase Main (en el mismo paquete):");
+        System.out.println(cb.atributoPublico);
+        System.out.println(cb.atributoProtegido);
+        System.out.println(cb.atributoDefault);
+        // System.out.println(cb.atributoPrivado); // ERROR DE COMPILACIÓN: atributoPrivado tiene acceso privado en ClaseBase
+
+        cb.metodoPublico();
+        cb.metodoProtegido();
+        cb.metodoDefault();
+        // cb.metodoPrivado(); // ERROR DE COMPILACIÓN: metodoPrivado tiene acceso privado en ClaseBase
+    }
+}
+```
+
+-----
+
+## 4\. Herencia
+
+La **herencia** permite que una clase (subclase) reutilice la funcionalidad de otra clase (superclase). Es un pilar fundamental de la POO que modela relaciones **"es-un"** (e.g., "un perro *es un* animal").
+
+### Objetivos de la Herencia
+
+  * **Reutilización de Código:** Evitar duplicar código, heredando atributos y métodos comunes.
+  * **Mantenimiento Sencillo:** Los cambios en la superclase se propagan automáticamente a las subclases.
+  * **Extensibilidad:** Añadir nuevas funcionalidades o especializar comportamientos en las subclases sin modificar la superclase.
+  * **Modelado del Mundo Real:** Representar jerarquías naturales entre entidades.
+
+### Uso de Herencia
+
+  * La palabra clave `extends` se usa para indicar que una clase hereda de otra.
+  * Una clase hija hereda todos los miembros `public` y `protected` de la clase padre. Los miembros `private` no son directamente accesibles, pero la clase hija puede usar los métodos públicos/protegidos de la superclase para interactuar con ellos.
+  * El constructor de la superclase siempre es invocado cuando se crea una instancia de la subclase. Esto se hace implícitamente o explícitamente con `super()`.
+
+### Recomendaciones
+
+  * **Usar `super()`:** Para llamar al constructor de la superclase y/o para acceder a miembros de la superclase ocultos por la subclase.
+  * **No abusar:** La herencia debe usarse para relaciones "es-un" claras. Para relaciones "tiene-un" (e.g., "un coche *tiene un* motor"), se prefiere la **composición**.
+  * **Métodos `final`:** Un método `final` en la superclase no puede ser sobreescrito en las subclases.
+  * **Clases `final`:** Una clase `final` no puede ser heredada por ninguna otra clase.
+  * **`@Override`:** Es una anotación útil para indicar que un método está sobreescribiendo uno de la superclase. Ayuda al compilador a verificar que la firma del método es correcta.
+
+### Herencia Simple
+
+En Java, solo se permite la **herencia simple**, lo que significa que una clase solo puede heredar directamente de una única superclase. Esto evita el problema del "diamante" de la herencia múltiple.
+
+**Ejemplo de Herencia Simple:**
+
+```java
+// Superclase (Clase Padre)
+class Animal {
+    String nombre;
+    int edad;
+
+    public Animal(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public void comer() {
+        System.out.println(nombre + " está comiendo.");
+    }
+
+    public void dormir() {
+        System.out.println(nombre + " está durmiendo.");
+    }
+
+    public void mostrarInfoAnimal() {
+        System.out.println("Nombre: " + nombre + ", Edad: " + edad + " años.");
+    }
+}
+
+// Subclase (Clase Hija) - Perro hereda de Animal
+class Perro extends Animal {
+    String raza;
+
+    public Perro(String nombre, int edad, String raza) {
+        super(nombre, edad); // Llama al constructor de la superclase Animal
+        this.raza = raza;
+    }
+
+    // Nuevo método específico de Perro
+    public void ladrar() {
+        System.out.println(nombre + " está ladrando: ¡Guau guau!");
+    }
+
+    // Sobreescritura de un método de la superclase (Polimorfismo)
+    @Override
+    public void mostrarInfoAnimal() {
+        super.mostrarInfoAnimal(); // Llama al método de la superclase
+        System.out.println("Raza: " + raza);
+    }
+}
+
+// Otra Subclase - Gato hereda de Animal
+class Gato extends Animal {
+    boolean tieneGarrasRetractiles;
+
+    public Gato(String nombre, int edad, boolean tieneGarrasRetractiles) {
+        super(nombre, edad);
+        this.tieneGarrasRetractiles = tieneGarrasRetractiles;
+    }
+
+    public void maullar() {
+        System.out.println(nombre + " está maullando: ¡Miau miau!");
+    }
+
+    @Override
+    public void mostrarInfoAnimal() {
+        super.mostrarInfoAnimal();
+        System.out.println("¿Tiene garras retráctiles? " + (tieneGarrasRetractiles ? "Sí" : "No"));
+    }
+}
+
+public class HerenciaEjemplo {
+    public static void main(String[] args) {
+        Animal miAnimal = new Animal("Buddy", 5);
+        miAnimal.comer();
+        miAnimal.mostrarInfoAnimal();
+
+        System.out.println("\n--- Perro ---");
+        Perro miPerro = new Perro("Max", 3, "Labrador");
+        miPerro.comer(); // Método heredado de Animal
+        miPerro.ladrar(); // Método propio de Perro
+        miPerro.mostrarInfoAnimal(); // Método sobreescrito en Perro
+
+        System.out.println("\n--- Gato ---");
+        Gato miGato = new Gato("Pelusa", 2, true);
+        miGato.dormir(); // Método heredado de Animal
+        miGato.maullar(); // Método propio de Gato
+        miGato.mostrarInfoAnimal(); // Método sobreescrito en Gato
+
+        // Polimorfismo en acción: Un objeto Perro tratado como Animal
+        Animal otroAnimal = new Perro("Rocky", 4, "Bulldog");
+        otroAnimal.comer(); // Llama al método comer de Animal
+        otroAnimal.mostrarInfoAnimal(); // Llama al método sobreescrito de Perro (debido al polimorfismo)
+        // otroAnimal.ladrar(); // ERROR: Un Animal no tiene método ladrar, aunque el objeto sea un Perro
+    }
+}
+```
+
+-----
+
+## 5\. Polimorfismo
+
+El **polimorfismo** significa "muchas formas". Permite que un objeto se presente de múltiples formas, lo que implica que puedes tratar objetos de diferentes clases (pero relacionadas por herencia) como si fueran objetos de una superclase común. En Java, se manifiesta principalmente a través de la **sobreescritura de métodos**.
+
+### Polimorfismo de Métodos (Sobreescritura - Override)
+
+Ocurre cuando una subclase proporciona su propia implementación para un método que ya está definido en su superclase. La firma del método (nombre y parámetros) debe ser **exactamente la misma**. Se usa la anotación `@Override` para indicar que se está sobreescribiendo un método.
+
+**Ejemplo (revisa el ejemplo de Herencia, los métodos `mostrarInfoAnimal()` en `Perro` y `Gato` son ejemplos de sobreescritura).**
+
+Aquí otro ejemplo más conciso:
+
+```java
+class Vehiculo {
+    public void mover() {
+        System.out.println("El vehículo se mueve.");
+    }
+}
+
+class Carro extends Vehiculo {
+    @Override // Anotación para indicar sobreescritura
+    public void mover() {
+        System.out.println("El carro se desplaza sobre ruedas.");
+    }
+}
+
+class Avion extends Vehiculo {
+    @Override
+    public void mover() {
+        System.out.println("El avión vuela por el aire.");
+    }
+}
+
+public class PolimorfismoEjemplo {
+    public static void main(String[] args) {
+        Vehiculo v1 = new Vehiculo();
+        Vehiculo v2 = new Carro(); // Objeto Carro, referencia Vehiculo
+        Vehiculo v3 = new Avion();  // Objeto Avion, referencia Vehiculo
+
+        v1.mover(); // Llama a mover() de Vehiculo
+        v2.mover(); // Llama a mover() de Carro (polimorfismo en acción)
+        v3.mover(); // Llama a mover() de Avion (polimorfismo en acción)
+
+        // Otro ejemplo de polimorfismo con un arreglo
+        Vehiculo[] vehiculos = new Vehiculo[3];
+        vehiculos[0] = new Carro();
+        vehiculos[1] = new Avion();
+        vehiculos[2] = new Vehiculo();
+
+        System.out.println("\nIterando sobre un arreglo de Vehiculos:");
+        for (Vehiculo vehiculo : vehiculos) {
+            vehiculo.mover(); // El método que se invoca depende del tipo real del objeto
+        }
+    }
+}
+```
+
+**Sobrecarga de Métodos (Overload):**
+Aunque no es estrictamente polimorfismo en el sentido de la herencia, es un concepto relacionado con "muchas formas" de un método. Ocurre cuando en la **misma clase** existen dos o más métodos con el **mismo nombre** pero con **diferente firma** (diferente número de parámetros o diferente tipo de parámetros).
+
+**Ejemplo de Sobrecarga:**
+
+```java
+class Calculadora {
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public double sumar(double a, double b) { // Mismo nombre, diferentes tipos de parámetros
+        return a + b;
+    }
+
+    public int sumar(int a, int b, int c) { // Mismo nombre, diferente número de parámetros
+        return a + b + c;
+    }
+}
+
+public class SobrecargaEjemplo {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+
+        System.out.println("Suma de enteros: " + calc.sumar(5, 3));        // Llama a sumar(int, int)
+        System.out.println("Suma de decimales: " + calc.sumar(2.5, 3.7)); // Llama a sumar(double, double)
+        System.out.println("Suma de tres enteros: " + calc.sumar(1, 2, 3)); // Llama a sumar(int, int, int)
+    }
+}
+```
+
+-----
+
+## 6\. Encapsulamiento
+
+El **encapsulamiento** es el principio de ocultar los detalles internos de la implementación de una clase y exponer solo una interfaz controlada para interactuar con ella. Protege los datos internos de un objeto de accesos o modificaciones no autorizadas y mantiene la integridad del objeto.
+
+**Cómo se logra en Java:**
+
+1.  **Declarar los atributos como `private`:** Esto evita el acceso directo desde fuera de la clase.
+2.  **Proporcionar métodos `public` (getters y setters):**
+      * **Getters (accesores):** Métodos que permiten obtener el valor de un atributo (ej. `getNombre()`).
+      * **Setters (mutadores):** Métodos que permiten modificar el valor de un atributo, a menudo incluyendo lógica de validación (ej. `setEdad(int edad)`).
+
+**Ventajas del Encapsulamiento:**
+
+  * **Protección de Datos:** Previene que los datos internos sean corrompidos por código externo.
+  * **Flexibilidad:** Permite cambiar la implementación interna de una clase sin afectar el código que la utiliza, siempre y cuando la interfaz pública (getters/setters) se mantenga.
+  * **Facilita el Mantenimiento:** Los cambios se localizan dentro de la clase.
+  * **Mejora la Usabilidad:** Los usuarios de la clase solo necesitan conocer la interfaz pública, no los detalles de implementación.
+
+**Ejemplo de Encapsulamiento:**
+
+```java
+public class Persona {
+    private String nombre; // Atributo privado
+    private int edad;      // Atributo privado
+
+    // Constructor
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        // Uso del setter en el constructor para aprovechar la validación
+        setEdad(edad);
+    }
+
+    // Getter para nombre (método público para acceder al atributo privado)
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Setter para nombre (permite modificar el atributo privado)
+    public void setNombre(String nombre) {
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            this.nombre = nombre;
+        } else {
+            System.out.println("Error: El nombre no puede estar vacío.");
+        }
+    }
+
+    // Getter para edad
+    public int getEdad() {
+        return edad;
+    }
+
+    // Setter para edad con validación
+    public void setEdad(int edad) {
+        if (edad >= 0 && edad <= 120) { // Lógica de validación
+            this.edad = edad;
+        } else {
+            System.out.println("Error: La edad debe estar entre 0 y 120.");
+        }
+    }
+
+    public void presentarse() {
+        System.out.println("Hola, mi nombre es " + nombre + " y tengo " + edad + " años.");
+    }
+
+    public static void main(String[] args) {
+        Persona p1 = new Persona("Ana", 30);
+        p1.presentarse();
+
+        // Acceso directo a atributos privados NO es posible:
+        // p1.nombre = "Pedro"; // Error de compilación
+
+        // Acceso y modificación a través de getters y setters
+        System.out.println("Nombre de p1: " + p1.getNombre());
+        p1.setEdad(31); // Modificación válida
+        p1.presentarse();
+
+        p1.setEdad(150); // Modificación inválida, la edad no cambia debido a la validación
+        p1.presentarse();
+
+        p1.setNombre(""); // Modificación inválida
+        p1.presentarse();
+
+        Persona p2 = new Persona("Luis", -5); // La edad se validará en el constructor
+        p2.presentarse(); // La edad de Luis seguirá siendo 0 o el valor por defecto si no se validara en el constructor
+    }
+}
+```
+
+-----
+
+## 7\. Interfaces Gráficas de Usuario (GUI)
+
+Las **Interfaces Gráficas de Usuario (GUI)** son la forma en que los usuarios interactúan visualmente con las aplicaciones. En Java SE, las tecnologías principales para crear GUIs son **Swing** (más antigua pero muy usada) y **JavaFX** (más moderna). Nos centraremos en Swing por ser más simple para iniciar.
+
+### Entrada y Salida en GUI
+
+A diferencia de las aplicaciones de consola que usan `System.out.println()` y `Scanner`, las GUIs manejan la entrada y salida a través de **componentes visuales**:
+
+  * **Entrada:**
+      * **Campos de texto (`JTextField`):** Para que el usuario ingrese texto.
+      * **Áreas de texto (`JTextArea`):** Para texto multilínea.
+      * **Botones (`JButton`):** Para disparar acciones.
+      * **Listas desplegables (`JComboBox`), casillas de verificación (`JCheckBox`), botones de radio (`JRadioButton`):** Para selecciones predefinidas.
+  * **Salida:**
+      * **Etiquetas (`JLabel`):** Para mostrar texto estático o dinámico.
+      * **Áreas de texto (`JTextArea`):** Para mostrar texto o logs.
+      * **Paneles (`JPanel`):** Para organizar componentes.
+      * **Ventanas de diálogo (`JOptionPane`):** Para mensajes emergentes o entrada simple.
+
+### Diseño de GUI
+
+El diseño de GUIs implica organizar los componentes en la ventana. Esto se hace con **Layout Managers**.
+
+  * **`BorderLayout`:** Divide la ventana en cinco regiones (Norte, Sur, Este, Oeste, Centro).
+  * **`FlowLayout`:** Coloca los componentes en una fila, de izquierda a derecha, y salta a la siguiente fila si no hay espacio.
+  * **`GridLayout`:** Organiza los componentes en una cuadrícula (filas y columnas del mismo tamaño).
+  * **`BoxLayout`:** Organiza componentes en una sola fila o columna.
+  * **`null` (Absolute Layout):** Permite especificar las coordenadas y el tamaño exacto de cada componente, pero es menos flexible para diferentes resoluciones.
+
+**Pasos básicos para crear una GUI con Swing:**
+
+1.  Crear un **`JFrame`**: La ventana principal de la aplicación.
+2.  Crear **componentes Swing**: `JButton`, `JLabel`, `JTextField`, etc.
+3.  Añadir componentes al `JFrame` (o a un `JPanel` dentro del `JFrame`).
+4.  Elegir un **Layout Manager**.
+5.  Manejar **eventos**: Usar **`ActionListener`** para responder a clics de botones, etc.
+
+### Funcionamiento de GUI (Manejo de Eventos)
+
+Las GUIs son **orientadas a eventos**. Esto significa que el programa no sigue una secuencia lineal estricta, sino que responde a acciones del usuario (eventos) como clics de botón, pulsaciones de teclado, movimientos del ratón, etc.
+
+  * **Evento:** Una acción que ocurre (ej., el usuario hace clic en un botón).
+  * **Fuente del Evento:** El componente que generó el evento (ej., el `JButton`).
+  * **Listener (Oyente):** Un objeto que "escucha" los eventos de una fuente específica. Implementa una interfaz específica de listener (ej., `ActionListener`).
+  * **Manejador de Eventos:** El método dentro del listener que contiene el código a ejecutar cuando ocurre un evento.
+
+**Ejemplo de GUI simple (Contador):**
+
+```java
+import javax.swing.*; // Importa todas las clases de Swing
+import java.awt.event.ActionEvent; // Para manejar eventos
+import java.awt.event.ActionListener; // Interfaz para el listener de botones
+import java.awt.*; // Para layout managers y otras utilidades gráficas
+
+public class ContadorGUI extends JFrame implements ActionListener { // La clase hereda de JFrame y "escucha" eventos
+
+    private JLabel etiquetaContador; // Etiqueta para mostrar el número
+    private JButton botonIncrementar; // Botón para incrementar
+    private JButton botonDecrementar; // Botón para decrementar
+    private int contador = 0; // Variable para el contador
+
+    public ContadorGUI() {
+        // Configuración de la ventana (JFrame)
+        setTitle("Contador Simple Java"); // Título de la ventana
+        setSize(300, 200); // Tamaño de la ventana (ancho, alto)
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar la ventana
+        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+
+        // Usar un BorderLayout para organizar los componentes
+        setLayout(new BorderLayout());
+
+        // 1. Crear componentes
+        etiquetaContador = new JLabel("Contador: " + contador, SwingConstants.CENTER); // Etiqueta centrada
+        etiquetaContador.setFont(new Font("Arial", Font.BOLD, 24)); // Fuente más grande
+
+        botonIncrementar = new JButton("Incrementar");
+        botonDecrementar = new JButton("Decrementar");
+
+        // 2. Añadir listeners a los botones
+        botonIncrementar.addActionListener(this); // 'this' indica que esta misma clase manejará el evento
+        botonDecrementar.addActionListener(this);
+
+        // 3. Crear un panel para los botones y usar FlowLayout
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Centrado, con espacio entre botones
+        panelBotones.add(botonIncrementar);
+        panelBotones.add(botonDecrementar);
+
+        // 4. Añadir componentes al JFrame
+        add(etiquetaContador, BorderLayout.CENTER); // La etiqueta en el centro
+        add(panelBotones, BorderLayout.SOUTH); // El panel de botones en la parte inferior
+
+        setVisible(true); // Hacer visible la ventana
+    }
+
+    // 5. Implementar el método del ActionListener para manejar eventos
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // e.getSource() devuelve el componente que disparó el evento
+        if (e.getSource() == botonIncrementar) {
+            contador++;
+        } else if (e.getSource() == botonDecrementar) {
+            contador--;
+        }
+        etiquetaContador.setText("Contador: " + contador); // Actualizar el texto de la etiqueta
+    }
+
+    public static void main(String[] args) {
+        // Se recomienda ejecutar las operaciones de GUI en el Event Dispatch Thread (EDT)
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ContadorGUI(); // Crea una instancia de la ventana
+            }
+        });
+    }
+}
+```
+
+-----
+
+## 8\. JavaDoc
+
+**JavaDoc** es una herramienta estándar de Oracle que genera documentación HTML a partir de comentarios especiales en el código fuente de Java. Es esencial para la documentación profesional del software.
+
+### ¿En qué Consiste?
+
+Consiste en escribir comentarios en un formato específico antes de clases, interfaces, métodos y atributos. Estos comentarios son luego procesados por la herramienta `javadoc` (incluida en el JDK) para producir un conjunto de páginas HTML que describen la API de tu código.
+
+**Sintaxis de los comentarios JavaDoc:**
+
+Empiezan con `/**` y terminan con `*/`.
+Dentro de los comentarios, se usan "etiquetas" (`@`) para proporcionar información estructurada:
+
+  * `@param nombreParametro descripcion`: Para describir un parámetro de un método.
+  * `@return descripcion`: Para describir el valor de retorno de un método.
+  * `@throws NombreExcepcion descripcion`: Para describir una excepción que puede ser lanzada por el método.
+  * `@see referencia`: Para crear un enlace a otra parte de la documentación.
+  * `@since version`: Indica desde qué versión de la API está disponible este elemento.
+  * `@author nombreAutor`: Para especificar el autor (generalmente en la clase).
+  * `@version version`: Para especificar la versión (generalmente en la clase).
+
+### Importancia de JavaDoc
+
+  * **Documentación Estándar:** Proporciona una forma consistente y reconocida de documentar el código Java.
+  * **Facilita el Uso de APIs:** Los desarrolladores pueden entender rápidamente cómo usar clases y métodos sin necesidad de leer el código fuente.
+  * **Generación Automática:** Ahorra tiempo al generar automáticamente la documentación en un formato fácil de navegar (HTML).
+  * **Mantenimiento:** La documentación vive junto al código, lo que ayuda a mantenerla actualizada.
+  * **Colaboración:** Imprescindible en equipos de desarrollo para que todos entiendan las responsabilidades de cada componente.
+
+### Utilización
+
+1.  **Escribir los comentarios JavaDoc** en el código fuente.
+2.  **Generar la documentación:**
+      * **Desde la línea de comandos:** Navega hasta la carpeta raíz de tu proyecto (donde está `src`) y ejecuta:
+        ```bash
+        javadoc -d docs src/**/*.java
+        ```
+        Esto creará una carpeta `docs` con la documentación HTML.
+      * **Desde un IDE (IntelliJ IDEA, Eclipse, NetBeans):** Todos los IDEs tienen una opción integrada para generar JavaDoc (normalmente en el menú "Tools" o "Project"). Es la forma más fácil.
+
+**Ejemplo de JavaDoc:**
+
+```java
+/**
+ * La clase CalculadoraSimple proporciona métodos básicos para realizar
+ * operaciones aritméticas.
+ * <p>
+ * Esta clase es un ejemplo para demostrar la utilidad de JavaDoc.
+ * </p>
+ * @author TuNombreCompleto
+ * @version 1.0
+ * @since 2025-07-20
+ */
+public class CalculadoraSimple {
+
+    /**
+     * Suma dos números enteros y devuelve el resultado.
+     * <p>
+     * Este método realiza una operación de adición simple.
+     * </p>
+     * @param a El primer número entero.
+     * @param b El segundo número entero.
+     * @return La suma de 'a' y 'b'.
+     * @throws IllegalArgumentException si alguno de los parámetros es negativo.
+     * @see #restar(int, int)
+     */
+    public int sumar(int a, int b) {
+        if (a < 0 || b < 0) {
+            throw new IllegalArgumentException("Los números no pueden ser negativos para la suma.");
+        }
+        return a + b;
+    }
+
+    /**
+     * Resta el segundo número del primero.
+     *
+     * @param minuendo El número del que se va a restar.
+     * @param sustraendo El número a restar.
+     * @return La diferencia entre minuendo y sustraendo.
+     */
+    public int restar(int minuendo, int sustraendo) {
+        return minuendo - sustraendo;
+    }
+
+    /**
+     * Multiplica dos números enteros.
+     *
+     * @param a El primer factor.
+     * @param b El segundo factor.
+     * @return El producto de 'a' y 'b'.
+     */
+    public int multiplicar(int a, int b) {
+        return a * b;
+    }
+
+    public static void main(String[] args) {
+        CalculadoraSimple calc = new CalculadoraSimple();
+        System.out.println("5 + 3 = " + calc.sumar(5, 3));
+        System.out.println("10 - 4 = " + calc.restar(10, 4));
+        System.out.println("2 * 6 = " + calc.multiplicar(2, 6));
+
+        try {
+            System.out.println("Suma con negativos: " + calc.sumar(-1, 5));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+

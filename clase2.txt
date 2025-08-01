@@ -1,0 +1,28 @@
+.jar : java archive resources 
+
+maven: Gestor de dependencias para java 
+
+
+En Java, los tipos de datos se dividen en dos categorías principales: primitivos y de referencia. Los tipos de datos primitivos son ocho: byte, short, int, long, float, double, char y boolean. Los tipos de datos de referencia se refieren a objetos, como cadenas (String), matrices (arrays) y clases personalizadas. 
+Tipos de datos primitivos:
+byte: Un entero de 8 bits con un rango de -128 a 127. 
+short: Un entero de 16 bits con un rango de -32,768 a 32,767. 
+int: Un entero de 32 bits con un rango de -2^31 a 2^31-1. 
+long: Un entero de 64 bits con un rango de -2^63 a 2^63-1. 
+float: Un número de punto flotante de precisión simple de 32 bits. 
+double: Un número de punto flotante de doble precisión de 64 bits. 
+char: Un carácter Unicode de 16 bits. 
+boolean: Representa un valor booleano, true o false. 
+Tipos de datos de referencia:
+String: Representa una secuencia de caracteres.
+Arrays (Matrices): Colecciones de elementos del mismo tipo.
+Clases personalizadas: Tipos de datos definidos por el usuario, que pueden contener variables y métodos. 
+Diferencias clave:
+Primitivos: Almacenan valores directamente en la memoria. 
+Referencia: Almacenan referencias (direcciones de memoria) a objetos. 
+Tamaño: Los tipos primitivos tienen tamaños predefinidos, mientras que el tamaño de los objetos puede variar. 
+Consideraciones adicionales:
+Java también tiene tipos de datos de referencia especiales como null (ausencia de objeto) y void (métodos que no devuelven valor). 
+Al elegir un tipo de datos, es importante considerar el rango de valores necesarios y la eficiencia en la memoria. 
+Los tipos de datos de referencia, como String, son objetos y se manejan de manera diferente a los tipos primitivos. 
+Variables y Tipos de Datos en

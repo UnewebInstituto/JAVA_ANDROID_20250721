@@ -1,0 +1,74 @@
+Público : public (Acceso total desde donde sea)
+
+Privado : private (Sólo se puede acceder dentro de la misma clase)
+
+Class Prueba{
+  private obtenerEdad(){
+    system.out.println(edad)
+  }
+
+  public otroObtenerEdad(){ <-- PUBLICO, HACE LLAMADO AL PRIVADO
+    this.obtenerEdad() ------------------------+ 
+  }
+}
+
+Prueba objeto1 = new Prueba()
+
+objeto.obtenerEdad() NO SE PUEDE PORQUE FUE DECLARADO PRIVADO
+
+objeto.otroObtenerEdad() SI SE PUEDE INVOCAR DADA SU NATURALEZA PÚBLICA
+
+Protegido : protected 
+
+
+
+Herencia
+
+
+clase Persona  
+
+atributos 
+
+nombre 
+edad 
+sexo 
+
+métodos 
+
+caminar()
+hablar()
+dormir() 
+
+|
+| extend 
+v
+
+Sub clase Trabajador 
+
+Hereda todos los atributos y métodos de la clase padre 
+
+Pero puede incorporar sus propios atributos y métodos 
+
+atributos 
+cargo 
+sueldo
+fecha_ingreso
+
+métodos
+ingresar_trabajo()
+egresar_trabajo()
+tomar_vacaciones()
+
+^
+|  generalizado  super clase
+|  especializado sub clase
+v
+
+
+
+
+
+
+
+
+

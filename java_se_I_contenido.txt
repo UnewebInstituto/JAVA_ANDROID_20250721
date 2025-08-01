@@ -1,0 +1,48 @@
+Contenido del Curso de Java SE Nivel I:
+Requisitos: Lógica de Programación.
+• Introducción al lenguaje Java
+o Historia
+o Características
+o Ventajas
+o Desventajas
+o Descarga
+o Entornos de Desarrollo
+o Organización
+• Repaso de lógica de programación
+o Variables
+o Constantes
+o Expresiones aritméticas
+o Expresiones lógicas
+o Conectivos lógicos
+o Tipos de Datos
+• Estructuras de Control de Flujo de Datos
+o Condicional
+ Simple
+ Compuesto
+ Anidado
+o Selección Múltiple
+• Estructuras de Control de Flujo de Datos Iterativas
+o For
+o While
+o Do.. While
+• Procedimientos
+o Principio de la programación Modular
+o Acciones
+o Funciones
+o Pase de parámetros
+ Por valor
+ Por Referencia
+• Arreglos
+o Arreglos Unidimensionales
+ Algoritmos de Búsqueda
+ Algoritmos de Ordenamiento
+o Arreglos Bidimensionales
+ Recorrido de matrices
+• Archivos de Texto
+o Clase File
+o Clase FileReader
+o Clase FileWriter
+o Clase PrintWriter
+o Clase BufferedReader
+o Lectura de Archivos
+o Escritura en archivos

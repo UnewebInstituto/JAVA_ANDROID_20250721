@@ -1,0 +1,25 @@
+Programación orientada a objetos
+
+Clase 
++-------------------------------+
+ Atributos : Es el equivalente en programación estructurada a variables
++-------------------------------+
+ Métodos: Es el equivalente en programación estructurada a Funciones
++-------------------------------+
+
+Nombre de clase: Debe comenzar con letra mayúscula 
+
+Persona, Alumno, Empresa
+
+Archivos de texto: Son una forma de persistencia, para guardar
+datos en disco. Java posee un conjunto de librerías para realizar 
+esta tarea.
+
+
+
+
+
+
+
+
+
